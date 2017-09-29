@@ -87,6 +87,13 @@ function sendTextMessage(recipientId, messageText) {
       id: recipientId
     },
     message: {
+      "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Red",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+      }
+    ],
       "attachment":{
       "type":"template",
       "payload":{
@@ -107,6 +114,7 @@ function sendTextMessage(recipientId, messageText) {
         }
         }
     }
+      
   };
 
   callSendAPI(messageData);
