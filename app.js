@@ -72,6 +72,9 @@ function receivedMessage(event) {
         break;
       case 'zdravo':
         sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+        setTimeout(function () {
+          sendTextMessage(senderID,"Da li želiš da pričamo?");
+        }, 500);
         break;
 
       default:
@@ -87,6 +90,7 @@ function sendTextMessage(recipientId, messageText) {
     recipient: {
       id: recipientId
     },
+    sender_action:"typing_on",
     message: {
       "text": messageText
     }
