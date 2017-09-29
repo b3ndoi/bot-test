@@ -89,11 +89,11 @@ function sendTextMessage(recipientId, messageText) {
   var messageData = {
     recipient: {
       id: recipientId
-    },
-    sender_action:"typing_on",
+    }
     message: {
       "text": messageText
-    }
+    },
+    sender_action:"typing_on"
 
   };
 
