@@ -87,32 +87,25 @@ function sendTextMessage(recipientId, messageText) {
       id: recipientId
     },
     message: {
+      "text":"Izaberi:",
       "quick_replies":[
       {
         "content_type":"text",
-        "title":"Red",
+        "title":"Tip 1",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+      },
+          {
+        "content_type":"text",
+        "title":"Tip 2",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+      },
+          {
+        "content_type":"text",
+        "title":"Tip 3",
         "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
       }
     ],
-      "attachment":{
-      "type":"template",
-      "payload":{
-        "template_type":"button",
-        "text":"What do you want to do next? "+messageText,
-        "buttons":[
-          {
-            "type":"web_url",
-            "url":"https://www.messenger.com",
-            "title":"Da"
-          },
-          {
-            "type":"web_url",
-            "url":"https://www.messenger.com",
-            "title":"Ne"
-          },
-            ]
-        }
-        }
+      
     }
       
   };
