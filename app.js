@@ -10,10 +10,9 @@ app.get('/', function (req, res) {
 });
 
 app.get('/webhook', function (req, res) {
-  if (req.query['hub.verify_token'] === 'sifra_za_token') {
+  if (req.query['hub.verify_token'] === 'sifra_zatoken') {
     res.send(req.query['hub.challenge']);
   } else {
-     console.log(req.query['hub.verify_token']);
     res.send('Error, wrong validation token');
   }
 });
