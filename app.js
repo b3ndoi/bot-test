@@ -107,7 +107,7 @@ function sendGenericMessage(recipientId, messageText) {
             title: "rift",
             subtitle: "Next-generation virtual reality",
             item_url: "https://www.oculus.com/en-us/rift/",               
-            image_url: "http://messengerdemo.parseapp.com/img/rift.png",
+            image_url: "https://external.fbeg3-1.fna.fbcdn.net/safe_image.php?d=AQDzuFu3YHMhHT0_&url=https%3A%2F%2Fscontent.oculuscdn.com%2Fv%2Ft64.5771-25%2F12727726_260257514396959_4582648530518147072_n.jpg%3Foh%3D79be5f12fbc23c52a45103f03e789909%26oe%3D59FDB74A&_nc_hash=AQCXDicPloAPSgy2",
             buttons: [{
               type: "web_url",
               url: "https://www.oculus.com/en-us/rift/",
