@@ -4,6 +4,7 @@ var parser = require('body-parser');
 
 var app = express();
 var port = process.env.PORT || 8080;
+app.use(parser.json());
 app.get('/', function (req, res) {
     res.send('Hello from Facebook Messenger Bot');
     // console.log(req);
