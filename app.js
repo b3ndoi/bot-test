@@ -87,7 +87,25 @@ function sendTextMessage(recipientId, messageText) {
       id: recipientId
     },
     message: {
-      text: messageText
+      "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"What do you want to do next? "+messageText,
+        "buttons":[
+          {
+            "type":"web_url",
+            "url":"https://www.messenger.com",
+            "title":"Da"
+          },
+          {
+            "type":"web_url",
+            "url":"https://www.messenger.com",
+            "title":"Ne"
+          },
+            ]
+        }
+        }
     }
   };
 
