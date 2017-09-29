@@ -66,17 +66,24 @@ function receivedMessage(event) {
 
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
-    switch (messageText) {
+    switch (messageText.toLowerCase()) {
       case 'generic':
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
         sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
         setTimeout(function () {
-          sendTextMessage(senderID,"Da li želiš da pričamo?");
+          sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
         }, 500);
         break;
-
+      case 'da želim':{
+        sendChoiceMessage(senderID, 'Da li si trudna?',"Da","Ne");
+        break;
+      }
+      case 'ne hvala':{
+        sendTextMessage(senderID, 'Prijatno');
+        break;
+      }
       default:
         sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
     }
@@ -92,6 +99,30 @@ function sendTextMessage(recipientId, messageText) {
     },
     message: {
       "text": messageText
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+function sendChoiceMessage(recipientId, messageText, yes, no) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      "text": messageText,
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":yes,
+          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+        },{
+          "content_type":"text",
+          "title":no,
+          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+        },
+      ]
     }
   };
 
