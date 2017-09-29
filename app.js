@@ -50,6 +50,7 @@ app.post('/webhook', function (req, res) {
   
 function receivedMessage(event) {
   var senderID = event.sender.id;
+  console.log(event.sender);
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
