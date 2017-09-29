@@ -20,7 +20,6 @@ app.get('/webhook', function (req, res) {
 
 app.post('/webhook', function (req, res) {
   var data = req.body;
-  console.log('bar do ovde');
   // Make sure this is a page subscription
   if (data.object === 'page') {
 
@@ -47,15 +46,14 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
   }
 });
-  
+
 function receivedMessage(event) {
   var senderID = event.sender.id;
-  console.log(event.sender);
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
 
-  console.log("Received message for user %d and page %d at %d with message:", 
+  console.log("Received message for user %d and page %d at %d with message:",
     senderID, recipientID, timeOfMessage);
   console.log(JSON.stringify(message));
 
@@ -72,9 +70,12 @@ function receivedMessage(event) {
       case 'generic':
         sendGenericMessage(senderID);
         break;
+      case 'zdravo':
+        sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+        break;
 
       default:
-        sendTextMessage(senderID, messageText);
+        sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
@@ -87,27 +88,9 @@ function sendTextMessage(recipientId, messageText) {
       id: recipientId
     },
     message: {
-      "text":"Izaberi:",
-      "quick_replies":[
-      {
-        "content_type":"text",
-        "title":"Tip 1",
-        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
-      },
-          {
-        "content_type":"text",
-        "title":"Tip 2",
-        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
-      },
-          {
-        "content_type":"text",
-        "title":"Tip 3",
-        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
-      }
-    ],
-      
+      "text": messageText
     }
-      
+
   };
 
   callSendAPI(messageData);
@@ -126,7 +109,7 @@ function sendGenericMessage(recipientId, messageText) {
           elements: [{
             title: "rift",
             subtitle: "Next-generation virtual reality",
-            item_url: "https://www.oculus.com/en-us/rift/",               
+            item_url: "https://www.oculus.com/en-us/rift/",
             image_url: "https://external.fbeg3-1.fna.fbcdn.net/safe_image.php?d=AQDzuFu3YHMhHT0_&url=https%3A%2F%2Fscontent.oculuscdn.com%2Fv%2Ft64.5771-25%2F12727726_260257514396959_4582648530518147072_n.jpg%3Foh%3D79be5f12fbc23c52a45103f03e789909%26oe%3D59FDB74A&_nc_hash=AQCXDicPloAPSgy2",
             buttons: [{
               type: "web_url",
@@ -140,7 +123,7 @@ function sendGenericMessage(recipientId, messageText) {
           }, {
             title: "touch",
             subtitle: "Your Hands, Now in VR",
-            item_url: "https://www.oculus.com/en-us/touch/",               
+            item_url: "https://www.oculus.com/en-us/touch/",
             image_url: "http://messengerdemo.parseapp.com/img/touch.png",
             buttons: [{
               type: "web_url",
@@ -155,7 +138,7 @@ function sendGenericMessage(recipientId, messageText) {
         }
       }
     }
-  };  
+  };
 
   callSendAPI(messageData);
 }
@@ -174,14 +157,14 @@ function callSendAPI(messageData) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;
 
-      console.log("Successfully sent generic message with id %s to recipient %s", 
+      console.log("Successfully sent generic message with id %s to recipient %s",
         messageId, recipientId);
     } else {
       console.error("Unable to send message.");
       console.error(response);
       console.error(error);
     }
-  });  
+  });
 }
 
 app.listen(port, function () {
