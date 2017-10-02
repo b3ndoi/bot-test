@@ -71,26 +71,43 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
+        sendTyipingMessage(senderID);
         sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
         setTimeout(function () {
+          sendTyipingMessage(senderID);
           sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
         }, 500);
         break;
       case 'da želim':{
-        sendChoiceMessage(senderID, 'Da li si trudna?',"Da","Ne");
+        sendTyipingMessage(senderID);
+        sendChoiceMessage(senderID, 'Da li si trudna?',"Jesam.","Ne nisam.");
         break;
       }
       case 'ne hvala':{
+        sendTyipingMessage(senderID);
         sendTextMessage(senderID, 'Prijatno');
         break;
       }
       default:
+        sendTyipingMessage(senderID);
         sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
 }
+
+function sendTyipingMessage(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    sender_action:"typing_on"
+  };
+
+  callSendAPI(messageData);
+}
+
 
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
