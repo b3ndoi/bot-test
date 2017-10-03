@@ -71,7 +71,7 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-        sendTyipingMessage(senderID);
+
         sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
         setTimeout(function () {
           sendTyipingMessage(senderID);
@@ -79,17 +79,17 @@ function receivedMessage(event) {
         }, 500);
         break;
       case 'da želim':{
-        sendTyipingMessage(senderID);
+
         sendChoiceMessage(senderID, 'Da li si trudna {{user_first_name}}?',"Jesam.","Ne nisam.");
         break;
       }
       case 'ne hvala':{
-        sendTyipingMessage(senderID);
+
         sendTextMessage(senderID, 'Prijatno');
         break;
       }
       default:
-        sendTyipingMessage(senderID);
+
         sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
     }
   } else if (messageAttachments) {
