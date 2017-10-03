@@ -197,7 +197,7 @@ var token = "EAATPaqX2Nd0BAPbtN7wjZCfJyfo9LCbsqbAbnb3TvFJZAoY43xDY9LE95t4JSFwLvO
 
 function callSendAPI(messageData) {
   request({
-    uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
+    uri: 'https://graph.facebook.com/v2.6/me/messages',
     qs: { access_token:  token},
     method: 'POST',
     json: messageData
