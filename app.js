@@ -80,7 +80,7 @@ function receivedMessage(event) {
         break;
       case 'da želim':{
         sendTyipingMessage(senderID);
-        sendChoiceMessage(senderID, 'Da li si trudna?',"Jesam.","Ne nisam.");
+        sendChoiceMessage(senderID, 'Da li si trudna {{user_first_name}}?',"Jesam.","Ne nisam.");
         break;
       }
       case 'ne hvala':{
