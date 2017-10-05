@@ -97,7 +97,11 @@ function receivedMessage(event) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
     if(brojevi){
-      
+      if(Number.isInteger(Number(messageText))){
+        sendTextMessage(senderID, 'Svaka cast');
+      }else{
+        sendTextMessage(senderID, 'Morate uneti broj');
+      }
     }else{
 
       switch (messageText.toLowerCase()) {
@@ -132,6 +136,7 @@ function receivedMessage(event) {
           user_info = getUserInfo(token, senderID, function(data,senderID){
             console.log(data);
             sendTextMessage(senderID, 'Draga '+data.first_name+', čestitam ti! U kojoj si nedelji trudnoće?( npr: 8 )');
+            brojevi = true;
           });
           break;
         }
