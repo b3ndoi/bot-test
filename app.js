@@ -64,7 +64,7 @@ function getUserInfo(token, sender, callback) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
-                this.sendTextMessage(senderID, 'Dobrodošla '.data.first_name.' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+                this.sendTextMessage(sender, 'Dobrodošla '.data.first_name.' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
 
             }
