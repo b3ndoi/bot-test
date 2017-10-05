@@ -72,9 +72,9 @@ function receivedMessage(event) {
         break;
       case 'zdravo':
         var data = getUserInfo(token, senderID);
-        if(data.gender == 'female'){
+        
           sendTextMessage(senderID, 'Dobrodošla '.data.first_name.' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
-        }
+
         setTimeout(function () {
           sendTyipingMessage(senderID);
           sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
