@@ -11,6 +11,9 @@ app.get('/', function (req, res) {
 });
 var token = "EAATPaqX2Nd0BAPbtN7wjZCfJyfo9LCbsqbAbnb3TvFJZAoY43xDY9LE95t4JSFwLvOZBO85EusDhqnsjoUHXrr4mBBrr4omT03e7a8vIDMyyzOWPt1zGaTtrNWiX0l0VZCkFTMYjxMBv9yhiDhLKLiKPAqIMOGNQEmNVI6lZCbwZDZD";
 var user_info;
+
+var brojevi = false;
+
 app.get('/webhook', function (req, res) {
   if (req.query['hub.verify_token'] === 'sifra_za_token') {
     res.send(req.query['hub.challenge']);
@@ -93,36 +96,50 @@ function receivedMessage(event) {
 
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
-    switch (messageText.toLowerCase()) {
-      case 'generic':
-        sendGenericMessage(senderID);
-        break;
-      case 'zdravo':
+    if(brojevi){
+      
+    }else{
+
+      switch (messageText.toLowerCase()) {
+        case 'generic':
+          sendGenericMessage(senderID);
+          break;
+        case 'zdravo':
+            user_info = getUserInfo(token, senderID, function(data,senderID){
+
+              sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+              setTimeout(function () {
+                sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
+              }, 500);
+            });
+
+          break;
+        case 'da želim':{
           user_info = getUserInfo(token, senderID, function(data,senderID){
-            console.log(data);
-            sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
-            setTimeout(function () {
-              sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
-            }, 500);
+
+            sendChoiceMessage(senderID, 'Draga '+data.first_name+', da li si trudna?',"Jesam.","Ne nisam.");
           });
 
-        break;
-      case 'da želim':{
-        user_info = getUserInfo(token, senderID, function(data,senderID){
-          console.log(data);
-          sendChoiceMessage(senderID, 'Da li si trudna '+data.first_name+'?',"Jesam.","Ne nisam.");
-        });
+          break;
+        }
+        case 'ne hvala':{
 
-        break;
+          sendTextMessage(senderID, 'Prijatno');
+          break;
+        }
+        case 'jesam':{
+
+          user_info = getUserInfo(token, senderID, function(data,senderID){
+            console.log(data);
+            sendTextMessage(senderID, 'Draga '+data.first_name+', čestitam ti! U kojoj si nedelji trudnoće?( npr: 8 )');
+          });
+          break;
+        }
+        default:
+
+          sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
+
       }
-      case 'ne hvala':{
-
-        sendTextMessage(senderID, 'Prijatno');
-        break;
-      }
-      default:
-
-        sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
