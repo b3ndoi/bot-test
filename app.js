@@ -71,8 +71,10 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-        getUserInfo(token, senderID);
-        sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+        var data = getUserInfo(token, senderID);
+        if(data.gender == 'female'){
+          sendTextMessage(senderID, 'Dobrodošla '.data.first_name.' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+        }
         setTimeout(function () {
           sendTyipingMessage(senderID);
           sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
@@ -113,7 +115,7 @@ function getUserInfo(token, sender) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
-                console.log(data);
+                return data;
             }
         });
     }
