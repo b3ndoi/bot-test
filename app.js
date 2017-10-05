@@ -10,6 +10,7 @@ app.get('/', function (req, res) {
     // console.log(req);
 });
 var token = "EAATPaqX2Nd0BAPbtN7wjZCfJyfo9LCbsqbAbnb3TvFJZAoY43xDY9LE95t4JSFwLvOZBO85EusDhqnsjoUHXrr4mBBrr4omT03e7a8vIDMyyzOWPt1zGaTtrNWiX0l0VZCkFTMYjxMBv9yhiDhLKLiKPAqIMOGNQEmNVI6lZCbwZDZD";
+var user_info;
 app.get('/webhook', function (req, res) {
   if (req.query['hub.verify_token'] === 'sifra_za_token') {
     res.send(req.query['hub.challenge']);
@@ -64,11 +65,12 @@ function getUserInfo(token, sender) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
-                // console.log(data);
-                // console.log(body);
-                return data;
+                user_info = data;
+
+
             }
         });
+    console.log(user_info);
     }
 
 
