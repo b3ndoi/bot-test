@@ -71,7 +71,7 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-
+        getUserInfo(token, senderID);
         sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
         setTimeout(function () {
           sendTyipingMessage(senderID);
@@ -84,7 +84,7 @@ function receivedMessage(event) {
         break;
       }
       case 'ne hvala':{
-        getUserInfo(token, senderID);
+
         sendTextMessage(senderID, 'Prijatno');
         break;
       }
