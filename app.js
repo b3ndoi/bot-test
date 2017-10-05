@@ -47,6 +47,32 @@ app.post('/webhook', function (req, res) {
   }
 });
 
+
+function getUserInfo(token, sender) {
+
+        request({
+            url: 'https://graph.facebook.com/v2.6/' + sender,
+            qs: {
+                fields: 'first_name,last_name,profile_pic,timezone,locale,gender',
+                access_token: token
+            },
+            method: 'GET'
+        }, function (error, response, body) {
+            if (error) {
+                console.log('Error getting user data: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            } else {
+                var data = JSON.parse(body);
+                console.log(data);
+                console.log(body);
+                return data;
+            }
+        });
+    }
+
+
+
 function receivedMessage(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
@@ -99,28 +125,6 @@ function receivedMessage(event) {
   }
 }
 
-function getUserInfo(token, sender) {
-
-        request({
-            url: 'https://graph.facebook.com/v2.6/' + sender,
-            qs: {
-                fields: 'first_name,last_name,profile_pic,timezone,locale,gender',
-                access_token: token
-            },
-            method: 'GET'
-        }, function (error, response, body) {
-            if (error) {
-                console.log('Error getting user data: ', error);
-            } else if (response.body.error) {
-                console.log('Error: ', response.body.error);
-            } else {
-                var data = JSON.parse(body);
-                console.log(data);
-                console.log(body);
-                return data;
-            }
-        });
-    }
 
 function sendTyipingMessage(recipientId) {
   var messageData = {
