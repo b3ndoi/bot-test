@@ -10,7 +10,7 @@ app.get('/', function (req, res) {
     // console.log(req);
 });
 var token = "EAATPaqX2Nd0BAPbtN7wjZCfJyfo9LCbsqbAbnb3TvFJZAoY43xDY9LE95t4JSFwLvOZBO85EusDhqnsjoUHXrr4mBBrr4omT03e7a8vIDMyyzOWPt1zGaTtrNWiX0l0VZCkFTMYjxMBv9yhiDhLKLiKPAqIMOGNQEmNVI6lZCbwZDZD";
-var user_info;
+
 app.get('/webhook', function (req, res) {
   if (req.query['hub.verify_token'] === 'sifra_za_token') {
     res.send(req.query['hub.challenge']);
@@ -51,7 +51,7 @@ app.post('/webhook', function (req, res) {
 
 function getUserInfo(token, sender) {
 
-        request({
+        var user_info = request({
             url: 'https://graph.facebook.com/v2.6/' + sender,
             qs: {
                 fields: 'first_name,last_name,profile_pic,timezone,locale,gender',
@@ -65,12 +65,12 @@ function getUserInfo(token, sender) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
-                user_info = data;
+                return data;
 
 
             }
         });
-    console.log(user_info);
+    return user_info;
     }
 
 
