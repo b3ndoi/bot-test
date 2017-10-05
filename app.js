@@ -99,6 +99,7 @@ function receivedMessage(event) {
     if(brojevi){
       if(Number.isInteger(Number(messageText))){
         sendTextMessage(senderID, 'Svaka cast');
+        brojevi = false;
       }else{
         sendTextMessage(senderID, 'Morate uneti broj');
       }
@@ -212,27 +213,41 @@ function sendGenericMessage(recipientId, messageText) {
         payload: {
           template_type: "generic",
           elements: [{
-            title: "rift",
-            subtitle: "Next-generation virtual reality",
-            item_url: "https://www.oculus.com/en-us/rift/",
+            title: "Bebac Web Site",
+            subtitle: "Poseti bebac sajt",
+            item_url: "https://www.bebac.com/",
             image_url: "https://external.fbeg3-1.fna.fbcdn.net/safe_image.php?d=AQDzuFu3YHMhHT0_&url=https%3A%2F%2Fscontent.oculuscdn.com%2Fv%2Ft64.5771-25%2F12727726_260257514396959_4582648530518147072_n.jpg%3Foh%3D79be5f12fbc23c52a45103f03e789909%26oe%3D59FDB74A&_nc_hash=AQCXDicPloAPSgy2",
             buttons: [{
               type: "web_url",
-              url: "https://www.oculus.com/en-us/rift/",
-              title: "Open Web URL"
+              url: "https://www.bebac.com/",
+              title: "Poseti sajt"
             }, {
               type: "postback",
               title: "Call Postback",
               payload: "Payload for first bubble",
             }],
           }, {
-            title: "touch",
-            subtitle: "Your Hands, Now in VR",
+            title: "Bebac Android aplikacija",
+            subtitle: "Skini Android Bebac aplikaciju",
             item_url: "https://www.oculus.com/en-us/touch/",
             image_url: "http://messengerdemo.parseapp.com/img/touch.png",
             buttons: [{
               type: "web_url",
-              url: "https://www.oculus.com/en-us/touch/",
+              url: "https://play.google.com/store/apps/details?id=com.degree361.bebac",
+              title: "Open Web URL"
+            }, {
+              type: "postback",
+              title: "Call Postback",
+              payload: "Payload for second bubble",
+            }]
+          }, {
+            title: "Bebac iOS aplikacija",
+            subtitle: "Skini iOS Bebac aplikaciju",
+            item_url: "https://www.oculus.com/en-us/touch/",
+            image_url: "http://messengerdemo.parseapp.com/img/touch.png",
+            buttons: [{
+              type: "web_url",
+              url: "https://play.google.com/store/apps/details?id=com.degree361.bebac",
               title: "Open Web URL"
             }, {
               type: "postback",
