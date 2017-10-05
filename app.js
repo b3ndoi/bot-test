@@ -49,7 +49,7 @@ app.post('/webhook', function (req, res) {
 });
 
 
-function getUserInfo(token, sender) {
+function getUserInfo(token, sender, callback) {
 
         request({
             url: 'https://graph.facebook.com/v2.6/' + sender,
@@ -98,8 +98,10 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-          var data = getUserInfo(token, senderID);
-          console.log(data);
+          getUserInfo(token, senderID, function(data){
+            console.log(data);
+          });
+
           sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
         setTimeout(function () {
