@@ -103,7 +103,7 @@ function receivedMessage(event) {
             user_info = data;
 
           });
-          console.log(user_info);
+          console.log(user_info + 'evo me');
           sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
         setTimeout(function () {
