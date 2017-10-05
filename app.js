@@ -99,15 +99,16 @@ function receivedMessage(event) {
         break;
       case 'zdravo':
           getUserInfo(token, senderID, function(data){
-            console.log(data);
+
+            sendTextMessage(senderID, 'Dobrodošla '.data.first_name.' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+
+          setTimeout(function () {
+            sendTyipingMessage(senderID);
+            sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
+          }, 500);
           });
 
-          sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
-        setTimeout(function () {
-          sendTyipingMessage(senderID);
-          sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
-        }, 500);
         break;
       case 'da želim':{
 
