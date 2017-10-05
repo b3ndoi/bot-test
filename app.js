@@ -48,6 +48,7 @@ app.post('/webhook', function (req, res) {
   }
 });
 
+
 function getUserInfo(token, sender, callback) {
 
         request({
@@ -64,7 +65,7 @@ function getUserInfo(token, sender, callback) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
-                sendTextMessage(sender, 'Dobrodošla '.data.first_name.' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+                return callback(data);
 
 
             }
@@ -97,12 +98,17 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-          user_info = getUserInfo(token, senderID);
+          user_info = getUserInfo(token, senderID, function(data){
+            console.log(data);
 
 
-        // setTimeout(function () {
-        //   sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
-        // }, 500);
+          });
+          console.log(user_info);
+          sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+
+        setTimeout(function () {
+          sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
+        }, 500);
         break;
       case 'da želim':{
 
