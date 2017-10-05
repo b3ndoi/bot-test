@@ -51,7 +51,7 @@ app.post('/webhook', function (req, res) {
 
 function getUserInfo(token, sender) {
 
-        var user_info = request({
+        request({
             url: 'https://graph.facebook.com/v2.6/' + sender,
             qs: {
                 fields: 'first_name,last_name,profile_pic,timezone,locale,gender',
@@ -65,12 +65,11 @@ function getUserInfo(token, sender) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
-                return data;
+                return callback(data);
 
 
             }
         });
-    return user_info;
     }
 
 
