@@ -71,8 +71,8 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-          getUserInfo(token, senderID);
-
+          var data = getUserInfo(token, senderID);
+          console.log(data);
           sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
         setTimeout(function () {
