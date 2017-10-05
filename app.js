@@ -100,7 +100,7 @@ function receivedMessage(event) {
       case 'zdravo':
           user_info = getUserInfo(token, senderID, function(data,senderID){
             console.log(data);
-            sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+            sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
           });
           console.log(user_info);
