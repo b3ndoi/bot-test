@@ -48,9 +48,6 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-function userInfo(data){
-  return data
-}
 function getUserInfo(token, sender) {
 
         request({
@@ -67,7 +64,7 @@ function getUserInfo(token, sender) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
-                userInfo(data);
+                return data;
 
 
             }
@@ -100,7 +97,7 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-          user_info = getUserInfo(token, senderID);
+          user_info = yield getUserInfo(token, senderID);
           console.log(user_info);
           sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
