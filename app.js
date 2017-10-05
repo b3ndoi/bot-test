@@ -64,7 +64,7 @@ function getUserInfo(token, sender, callback) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
-                return callback(data);
+                this.sendTextMessage(senderID, 'Dobrodošla '.data.first_name.' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
 
             }
@@ -97,15 +97,12 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-          user_info = getUserInfo(token, senderID, function(data){
-            return data;
-          });
-          console.log(user_info);
-          sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+          user_info = getUserInfo(token, senderID);
 
-        setTimeout(function () {
-          sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
-        }, 500);
+
+        // setTimeout(function () {
+        //   sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
+        // }, 500);
         break;
       case 'da želim':{
 
