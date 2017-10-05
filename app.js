@@ -101,18 +101,18 @@ function receivedMessage(event) {
           user_info = getUserInfo(token, senderID, function(data,senderID){
             console.log(data);
             sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
-
+            setTimeout(function () {
+              sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
+            }, 500);
           });
-          console.log(user_info);
 
-
-        setTimeout(function () {
-          sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
-        }, 500);
         break;
       case 'da želim':{
+        user_info = getUserInfo(token, senderID, function(data,senderID){
+          console.log(data);
+          sendChoiceMessage(senderID, 'Da li si trudna '+data.first_name+'?',"Jesam.","Ne nisam.");
+        });
 
-        sendChoiceMessage(senderID, 'Da li si trudna {{user_first_name}}?',"Jesam.","Ne nisam.");
         break;
       }
       case 'ne hvala':{
