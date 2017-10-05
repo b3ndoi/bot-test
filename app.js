@@ -48,7 +48,7 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-function getUserInfo(token, sender) {
+function getUserInfo(token, sender, callback) {
 
         request({
             url: 'https://graph.facebook.com/v2.6/' + sender,
@@ -64,7 +64,7 @@ function getUserInfo(token, sender) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
-                return data;
+                return callback(data);
 
 
             }
@@ -97,7 +97,11 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-          user_info = yield getUserInfo(token, senderID);
+          user_info = getUserInfo(token, senderID, function(data){
+            console.log(data);
+
+
+          });
           console.log(user_info);
           sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
