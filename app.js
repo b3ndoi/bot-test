@@ -101,9 +101,9 @@ function receivedMessage(event) {
           getUserInfo(token, senderID, function(data){
             console.log(data);
             user_info = data;
-            console.log(user_info);
-          });
 
+          });
+          console.log(user_info);
           sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
         setTimeout(function () {
