@@ -64,8 +64,8 @@ function getUserInfo(token, sender) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
-                console.log(data);
-                console.log(body);
+                // console.log(data);
+                // console.log(body);
                 return data;
             }
         });
@@ -79,8 +79,8 @@ function receivedMessage(event) {
   var timeOfMessage = event.timestamp;
   var message = event.message;
 
-  console.log("Received message for user %d and page %d at %d with message:",
-    senderID, recipientID, timeOfMessage);
+  // console.log("Received message for user %d and page %d at %d with message:",
+    // senderID, recipientID, timeOfMessage);
   console.log(JSON.stringify(message));
 
   var messageId = message.mid;
@@ -98,7 +98,7 @@ function receivedMessage(event) {
         break;
       case 'zdravo':
           var data = getUserInfo(token, senderID);
-          console.log(data);
+          // console.log(data);
           sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
         setTimeout(function () {
