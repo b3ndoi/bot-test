@@ -71,14 +71,9 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-<<<<<<< HEAD
           getUserInfo(token, senderID);
 
-=======
-        var data = getUserInfo(token, senderID);
-        
->>>>>>> 444ec635643cd4bf46d456c6e45a40516b1fa815
-          sendTextMessage(senderID, 'Dobrodošla '.data.first_name.' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+          sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
 
         setTimeout(function () {
           sendTyipingMessage(senderID);
