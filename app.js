@@ -115,6 +115,8 @@ function getUserInfo(token, sender) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
+                console.log(data);
+                console.log(body);
                 return data;
             }
         });
