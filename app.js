@@ -9,7 +9,7 @@ app.get('/', function (req, res) {
     res.send('Hello from Facebook Messenger Bot');
     // console.log(req);
 });
-
+var token = "EAATPaqX2Nd0BAPbtN7wjZCfJyfo9LCbsqbAbnb3TvFJZAoY43xDY9LE95t4JSFwLvOZBO85EusDhqnsjoUHXrr4mBBrr4omT03e7a8vIDMyyzOWPt1zGaTtrNWiX0l0VZCkFTMYjxMBv9yhiDhLKLiKPAqIMOGNQEmNVI6lZCbwZDZD";
 app.get('/webhook', function (req, res) {
   if (req.query['hub.verify_token'] === 'sifra_za_token') {
     res.send(req.query['hub.challenge']);
@@ -71,7 +71,7 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'zdravo':
-        sendTyipingMessage(senderID);
+
         sendTextMessage(senderID, 'Dobrodošla u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
         setTimeout(function () {
           sendTyipingMessage(senderID);
@@ -79,23 +79,44 @@ function receivedMessage(event) {
         }, 500);
         break;
       case 'da želim':{
-        sendTyipingMessage(senderID);
-        sendChoiceMessage(senderID, 'Da li si trudna?',"Jesam.","Ne nisam.");
+
+        sendChoiceMessage(senderID, 'Da li si trudna {{user_first_name}}?',"Jesam.","Ne nisam.");
         break;
       }
       case 'ne hvala':{
-        sendTyipingMessage(senderID);
+        getUserInfo(token, senderID);
         sendTextMessage(senderID, 'Prijatno');
         break;
       }
       default:
-        sendTyipingMessage(senderID);
+
         sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
 }
+
+function getUserInfo(token, sender) {
+
+        request({
+            url: 'https://graph.facebook.com/v2.6/' + sender,
+            qs: {
+                fields: 'first_name,last_name,profile_pic,timezone,locale,gender',
+                access_token: token
+            },
+            method: 'GET'
+        }, function (error, response, body) {
+            if (error) {
+                console.log('Error getting user data: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            } else {
+                var data = JSON.parse(body);
+                console.log(data);
+            }
+        });
+    }
 
 function sendTyipingMessage(recipientId) {
   var messageData = {
@@ -193,7 +214,7 @@ function sendGenericMessage(recipientId, messageText) {
   callSendAPI(messageData);
 }
 
-var token = "EAATPaqX2Nd0BAPbtN7wjZCfJyfo9LCbsqbAbnb3TvFJZAoY43xDY9LE95t4JSFwLvOZBO85EusDhqnsjoUHXrr4mBBrr4omT03e7a8vIDMyyzOWPt1zGaTtrNWiX0l0VZCkFTMYjxMBv9yhiDhLKLiKPAqIMOGNQEmNVI6lZCbwZDZD";
+
 
 function callSendAPI(messageData) {
   request({
