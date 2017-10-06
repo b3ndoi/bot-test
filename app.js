@@ -98,7 +98,7 @@ function receivedMessage(event) {
     // and send back the example. Otherwise, just echo the text we received.
     if(brojevi){
       if(Number.isInteger(Number(messageText))){
-        sendOffers(Number.isInteger(Number(messageText)), senderID, action, function(senderID, data){
+        sendOffers(Number.isInteger(Number(messageText)), senderID, function(senderID, data){
           sendTextMessage(senderID, data.title);
           brojevi = false;
         });
@@ -259,7 +259,7 @@ function sendGenericMessage(recipientId, messageText) {
   callSendAPI(messageData);
 }
 
-function sendOffers(broj, sender, action, callback) {
+function sendOffers(broj, sender, callback) {
         request({
             url: 'http://lsapp.apps-codeit.com/api/posts/' + broj,
             method: 'GET'
