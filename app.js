@@ -294,7 +294,7 @@ function sendOffers(broj, sender, action, callback) {
                 callback(sender, offers);
             }
         });
-
+}
 
 function callSendAPI(messageData) {
   request({
