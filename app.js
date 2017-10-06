@@ -103,7 +103,7 @@ function receivedMessage(event) {
           brojevi = false;
           sendTextMessage(senderID, data.title);
           setTimeout(function () {
-            sendTextMessage(senderID, data.tekst);
+            sendTextMessage(senderID, data.title);
           }, 500);
         });
 
