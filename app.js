@@ -101,9 +101,8 @@ function receivedMessage(event) {
         console.log(Number(messageText));
         sendOffers(Number(messageText), senderID, function(senderID, data){
           sendTextMessage(senderID, data.title);
-          setTimeout(function () {
-            sendTextMessage(senderID,data.body);
-          }, 500);
+          sendTextMessage(senderID, data.body);
+          
         });
 
       }else{
