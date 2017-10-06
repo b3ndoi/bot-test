@@ -219,7 +219,7 @@ function sendOptionMessage(recipientId, messageText) {
             "payload":{
                 "text":messageText.title
               }
-            }
+            
           },
         ]
       }
