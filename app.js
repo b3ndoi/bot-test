@@ -101,8 +101,10 @@ function receivedMessage(event) {
         console.log(Number(messageText));
         sendOffers(Number(messageText), senderID, function(senderID, data){
           brojevi = false;
-          sendTextMessage(senderID, data.body);
-
+          sendTextMessage(senderID, data.title);
+          setTimeout(function () {
+            sendTextMessage(senderID, data.tekst);
+          }, 500);
         });
 
       }else{
