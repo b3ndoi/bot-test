@@ -256,6 +256,41 @@ function sendGenericMessage(recipientId, messageText) {
   callSendAPI(messageData);
 }
 
+function sendOffers(broj, sender, action, callback) {
+        request({
+            url: 'http://lsapp.dev/api/posts/' + broj,
+            method: 'GET'
+        }, function (error, response, body) {
+            if (error) {
+                console.log('Error getting user data: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            } else {
+                var offers = JSON.parse(body);
+
+                var payload = {
+                    "template_type": type,
+                    "elements": offers
+                };
+
+                if (type == "list") {
+
+                    payload = {
+                        "template_type": type,
+                        "elements": offers,
+                        "buttons": [
+                            {
+                                "title": "Jos ponuda",
+                                "type": "postback",
+                                "payload": "more"
+                            }
+                        ]
+                    };
+                }
+
+                callback(sender, payload);
+            }
+        });
 
 
 function callSendAPI(messageData) {
