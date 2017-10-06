@@ -77,6 +77,8 @@ function getUserInfo(token, sender, callback) {
 
 
 
+
+
 function receivedMessage(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
@@ -200,17 +202,17 @@ function sendOptionMessage(recipientId, messageText) {
         "text":"Šta prvo želite da saznate",
         "buttons":[
           {
-            "type":"web_url",
-            "url":"https://www.messenger.com",
-            "title":"VAŠA TRUDNOĆA U 8 NEDELJI"
+            "type":"postback",
+            "title":"VAŠA TRUDNOĆA U 8 NEDELJI",
+            "payload":"DEVELOPER_DEFINED_PAYLOAD"
           },{
             "type":"web_url",
-            "url":"https://www.messenger.com",
-            "title":"SAVET ZA OVU NEDELJU"
+            "title":"SAVET ZA OVU NEDELJU",
+            "payload":"DEVELOPER_DEFINED_PAYLOAD"
           },{
             "type":"web_url",
-            "url":"https://www.messenger.com",
-            "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?"
+            "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?",
+            "payload":"DEVELOPER_DEFINED_PAYLOAD"
           },
         ]
       }
@@ -309,28 +311,6 @@ function sendOffers(broj, sender, callback) {
             } else if (response.body.error) {
                 console.log('Error: ', response.body.error);
             } else {
-                var offers = JSON.parse(body);
-                console.log(offers);
-                // var payload = {
-                //     "template_type": type,
-                //     "elements": offers
-                // };
-                //
-                // if (type == "list") {
-                //
-                //     payload = {
-                //         "template_type": type,
-                //         "elements": offers,
-                //         "buttons": [
-                //             {
-                //                 "title": "Jos ponuda",
-                //                 "type": "postback",
-                //                 "payload": "more"
-                //             }
-                //         ]
-                //     };
-                // }
-
                 callback(sender, offers);
             }
         });
