@@ -311,6 +311,7 @@ function sendOffers(broj, sender, callback) {
             } else if (response.body.error) {
                 console.log('Error: ', response.body.error);
             } else {
+                var offers = JSON.parse(body);
                 callback(sender, offers);
             }
         });
