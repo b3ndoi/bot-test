@@ -204,22 +204,15 @@ function sendOptionMessage(recipientId, messageText) {
           {
             "type":"postback",
             "title":"VAŠA TRUDNOĆA U 8 NEDELJI",
-            "payload":{
-                "text":messageText.title
-              }
+            "payload":"DEVELOPER_DEFINED_PAYLOAD"
           },{
             "type":"postback",
             "title":"SAVET ZA OVU NEDELJU",
-            "payload":{
-                "text":messageText.title
-              }
+            "payload":"DEVELOPER_DEFINED_PAYLOAD"
           },{
             "type":"postback",
             "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?",
-            "payload":{
-                "text":messageText.title
-              }
-            
+            "payload":"DEVELOPER_DEFINED_PAYLOAD"
           },
         ]
       }
