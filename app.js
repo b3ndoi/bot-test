@@ -98,8 +98,9 @@ function receivedMessage(event) {
     // and send back the example. Otherwise, just echo the text we received.
     if(brojevi){
       if(Number.isInteger(Number(messageText))){
-        console.log(Number(messageText));
+
         sendOffers(Number(messageText), senderID, function(senderID, data){
+          console.log(data);
           brojevi = false;
           sendTextMessage(senderID, data.title);
           setTimeout(function () {
