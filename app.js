@@ -98,8 +98,11 @@ function receivedMessage(event) {
     // and send back the example. Otherwise, just echo the text we received.
     if(brojevi){
       if(Number.isInteger(Number(messageText))){
-        sendTextMessage(senderID, 'Svaka cast');
-        brojevi = false;
+        sendOffers(Number.isInteger(Number(messageText)), senderID, action, function(senderID, data){
+          sendTextMessage(senderID, data.title);
+          brojevi = false;
+        });
+
       }else{
         sendTextMessage(senderID, 'Morate uneti broj');
       }
@@ -256,41 +259,41 @@ function sendGenericMessage(recipientId, messageText) {
   callSendAPI(messageData);
 }
 
-// function sendOffers(broj, sender, action, callback) {
-//         request({
-//             url: 'http://lsapp.dev/api/posts/' + broj,
-//             method: 'GET'
-//         }, function (error, response, body) {
-//             if (error) {
-//                 console.log('Error getting user data: ', error);
-//             } else if (response.body.error) {
-//                 console.log('Error: ', response.body.error);
-//             } else {
-//                 var offers = JSON.parse(body);
-//
-//                 var payload = {
-//                     "template_type": type,
-//                     "elements": offers
-//                 };
-//
-//                 if (type == "list") {
-//
-//                     payload = {
-//                         "template_type": type,
-//                         "elements": offers,
-//                         "buttons": [
-//                             {
-//                                 "title": "Jos ponuda",
-//                                 "type": "postback",
-//                                 "payload": "more"
-//                             }
-//                         ]
-//                     };
-//                 }
-//
-//                 callback(sender, payload);
-//             }
-//         });
+function sendOffers(broj, sender, action, callback) {
+        request({
+            url: 'http://lsapp.apps-codeit.com/api/posts/' + broj,
+            method: 'GET'
+        }, function (error, response, body) {
+            if (error) {
+                console.log('Error getting user data: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            } else {
+                var offers = JSON.parse(body);
+                console.log(offers);
+                // var payload = {
+                //     "template_type": type,
+                //     "elements": offers
+                // };
+                //
+                // if (type == "list") {
+                //
+                //     payload = {
+                //         "template_type": type,
+                //         "elements": offers,
+                //         "buttons": [
+                //             {
+                //                 "title": "Jos ponuda",
+                //                 "type": "postback",
+                //                 "payload": "more"
+                //             }
+                //         ]
+                //     };
+                // }
+
+                callback(sender, offers);
+            }
+        });
 
 
 function callSendAPI(messageData) {
