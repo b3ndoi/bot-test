@@ -100,9 +100,9 @@ function receivedMessage(event) {
       if(Number.isInteger(Number(messageText))){
         console.log(Number(messageText));
         sendOffers(Number(messageText), senderID, function(senderID, data){
-          sendTextMessage(senderID, data.title);
+          brojevi = false;
           sendTextMessage(senderID, data.body);
-          
+
         });
 
       }else{
