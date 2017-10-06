@@ -104,7 +104,7 @@ function receivedMessage(event) {
           brojevi = false;
           sendTextMessage(senderID, data.title);
           setTimeout(function () {
-            sendTextMessage(senderID, data.title);
+            sendOptionMessage(senderID, data);
           }, 500);
         });
 
@@ -180,6 +180,41 @@ function sendTextMessage(recipientId, messageText) {
     },
     message: {
       "text": messageText
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+function sendOptionMessage(recipientId, messageText) {
+  console.log(messageText);
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"Šta prvo želite da saznate",
+        "buttons":[
+          {
+            "type":"web_url",
+            "url":"https://www.messenger.com",
+            "title":"VAŠA TRUDNOĆA U 8 NEDELJI"
+          },{
+            "type":"web_url",
+            "url":"https://www.messenger.com",
+            "title":"SAVET ZA OVU NEDELJU"
+          },{
+            "type":"web_url",
+            "url":"https://www.messenger.com",
+            "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?"
+          },
+        ]
+      }
+      }
     }
   };
 
