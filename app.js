@@ -206,11 +206,11 @@ function sendOptionMessage(recipientId, messageText) {
             "title":"VAŠA TRUDNOĆA U 8 NEDELJI",
             "payload":"DEVELOPER_DEFINED_PAYLOAD"
           },{
-            "type":"web_url",
+            "type":"postback",
             "title":"SAVET ZA OVU NEDELJU",
             "payload":"DEVELOPER_DEFINED_PAYLOAD"
           },{
-            "type":"web_url",
+            "type":"postback",
             "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?",
             "payload":"DEVELOPER_DEFINED_PAYLOAD"
           },
