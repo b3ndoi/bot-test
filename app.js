@@ -208,7 +208,7 @@ function sendOptionMessage(recipientId, messageText) {
           },{
             "type":"postback",
             "title":"SAVET ZA OVU NEDELJU",
-            "payload": text: messageText.title
+            "payload": messageText.title
             
           },{
             "type":"postback",
