@@ -132,7 +132,7 @@ function receivedMessage(event) {
         case 'da želim':{
           user_info = getUserInfo(token, senderID, function(data,senderID){
 
-            sendChoiceMessage(senderID, 'Draga '+data.first_name+', da li si trudna?',"Jesam.","Ne nisam.");
+            sendChoiceMessage(senderID, 'Draga '+data.first_name+', da li si trudna?',"Jesam","Ne nisam");
           });
 
           break;
@@ -208,7 +208,11 @@ function sendOptionMessage(recipientId, messageText) {
           },{
             "type":"postback",
             "title":"SAVET ZA OVU NEDELJU",
-            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+            "payload":{
+              message: {
+                text: messageText.title
+              }
+            }
           },{
             "type":"postback",
             "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?",
