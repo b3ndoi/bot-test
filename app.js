@@ -157,7 +157,16 @@ function receivedMessage(event) {
 
       }
     }
-  } else if (messageAttachments) {
+  } else if (event.postback) {
+            let payload = event.postback.payload;
+            console.log(payload);
+            // if (postback && typeof postback === "function") {
+            //     postback(sender, payload);
+            // } else {
+            //     console.log("Postback " + postback + " is not defined");
+            // }
+        }
+ else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
 }
