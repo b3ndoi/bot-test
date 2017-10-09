@@ -100,9 +100,6 @@ function saveUser(sender, data){
                 console.log('Error sending message: ', error);
             } else if (response.body.error) {
                 console.log('Error: ', response.body.error);
-            }else {
-                var data = JSON.parse(body);
-                console.log(data);
             }
         });
 }
