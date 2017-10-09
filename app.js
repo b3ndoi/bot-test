@@ -108,7 +108,7 @@ function saveUser(sender, data){
 
 function checkUser(sender, callback) {
         request({
-            url: 'http://lsapp.apps-codeit.com/api/posts/' + sender,
+            url: 'http://lsapp.apps-codeit.com/api/facebook/' + sender,
             method: 'GET'
         }, function (error, response, body) {
             if (error) {
