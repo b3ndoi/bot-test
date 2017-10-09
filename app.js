@@ -249,6 +249,13 @@ function receivedMessage(event) {
           });
           break;
         }
+        case 'indzu?':{
+
+          user_info = getUserInfo(token, senderID, function(data,senderID){
+            sendTextMessage(senderID, 'Jesi '+data.first_name+', indžu šino? Narkomane');
+          });
+          break;
+        }
         default:
 
           sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
