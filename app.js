@@ -71,7 +71,7 @@ function getUserInfo(token, sender, callback) {
             } else {
                 var data = JSON.parse(body);
                 console.log(data);
-                // saveUser();
+                saveUser(sender, data);
                 return callback(data, sender);
 
 
@@ -79,7 +79,30 @@ function getUserInfo(token, sender, callback) {
         });
     }
 
-
+function saveUser(sender, data){
+  var timezone = data.timezone > 0 ?
+            '+' + data.timezone : data.timezone;
+  var userData = {
+            id: sender,
+            gender: data.gender,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            profile_pic: data.profile_pic,
+            timezone: 'GMT ' + timezone + 'h',
+            locale: data.locale
+  };
+  request({
+            url: 'http://lsapp.apps-codeit.com/api/facebook/store',
+            method: 'POST',
+            json: userData
+        }, function (error, response, body) {
+            if (error) {
+                console.log('Error sending message: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            }
+        });
+}
 
 function receivedPostback(event){
   var senderID = event.sender.id;
