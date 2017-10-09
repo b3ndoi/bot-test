@@ -90,12 +90,12 @@ function receivedMessage(event) {
   console.log(JSON.stringify(message));
 
   var messageId = message.mid;
-  
+
   var messageText = message.text;
   var messagePostback = event.postback;
   var messageAttachments = message.attachments;
   if(messagePostback){
-    console.log(event.postback.payload;); 
+    console.log(event.postback.payload); 
   }
   if (messageText) {
     // If we receive a text message, check to see if it matches a keyword
