@@ -102,7 +102,7 @@ function receivedPostback(event){
 
     sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
       console.log(data);
-      sendTextMessage(senderID, data.text);
+      sendTextMessage(senderID, data.tekst);
       setTimeout(function () {
         sendOptionMessage(senderID, data);
       }, 500);
