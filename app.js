@@ -13,7 +13,7 @@ var token = "EAATPaqX2Nd0BAPbtN7wjZCfJyfo9LCbsqbAbnb3TvFJZAoY43xDY9LE95t4JSFwLvO
 var user_info;
 
 var brojevi = false;
-
+var novi_korisnik = true;
 app.get('/webhook', function (req, res) {
   if (req.query['hub.verify_token'] === 'sifra_za_token') {
     res.send(req.query['hub.challenge']);
@@ -202,13 +202,16 @@ function receivedMessage(event) {
           sendGenericMessage(senderID);
           break;
         case 'zdravo':
-            user_info = getUserInfo(token, senderID, function(data,senderID){
-
-              sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
-              setTimeout(function () {
-                sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
-              }, 500);
-            });
+            if(novi_korisnik){
+                        user_info = getUserInfo(token, senderID, function(data,senderID){
+            
+                          sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+                          setTimeout(function () {
+                            sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
+                          }, 500);
+                        });}else{
+                          sendTextMessage(senderID, 'Znamo se');
+                        }
 
           break;
         case 'da želim':{
