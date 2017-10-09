@@ -71,7 +71,7 @@ function getUserInfo(token, sender, callback) {
             } else {
                 var data = JSON.parse(body);
                 console.log(data);
-                saveUser(sender, data);
+                
                 return callback(data, sender);
 
 
