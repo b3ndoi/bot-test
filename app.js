@@ -95,7 +95,6 @@ function receivedMessage(event) {
   var messageAttachments = message.attachments;
 
   if (messageText) {
-    console.log(event.postback.payload);
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
     if(brojevi){
@@ -157,17 +156,18 @@ function receivedMessage(event) {
       }
     }
   } else if (event.postback) {
-            let payload = event.postback.payload;
-            console.log(payload);
-            sendTextMessage(senderID, payload);
-            console.log(payload);
-            sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
-              console.log(data);
-              sendTextMessage(senderID, data.body);
-              setTimeout(function () {
-                sendOptionMessage(senderID, data);
-              }, 500);
-            });
+            console.log('true');
+            // let payload = event.postback.payload;
+            // console.log(payload);
+            // sendTextMessage(senderID, payload);
+            // console.log(payload);
+            // sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
+            //   console.log(data);
+            //   sendTextMessage(senderID, data.body);
+            //   setTimeout(function () {
+            //     sendOptionMessage(senderID, data);
+            //   }, 500);
+            // });
         }
  else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
