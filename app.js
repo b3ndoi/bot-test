@@ -160,11 +160,13 @@ function receivedMessage(event) {
   } else if (event.postback) {
             let payload = event.postback.payload;
             console.log(payload);
-            // if (postback && typeof postback === "function") {
-            //     postback(sender, payload);
-            // } else {
-            //     console.log("Postback " + postback + " is not defined");
-            // }
+            sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
+              console.log(data);
+              sendTextMessage(senderID, data.body);
+              setTimeout(function () {
+                sendOptionMessage(senderID, data);
+              }, 500);
+            });
         }
  else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
@@ -217,7 +219,7 @@ function sendOptionMessage(recipientId, messageText) {
           },{
             "type":"postback",
             "title":"SAVET ZA OVU NEDELJU",
-            "payload": messageText.title
+            "payload": messageText.id+".savet"
             
           },{
             "type":"postback",
