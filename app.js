@@ -117,6 +117,7 @@ function checkUser(sender, callback) {
                 console.log('Error: ', response.body.error);
             } else {
                 var message = JSON.parse(body);
+                console.log(message);
                 callback(sender, message);
             }
         });
@@ -190,7 +191,7 @@ function receivedMessage(event) {
       }
     }else{
       checkUser(senderID, function(senderId, message){
-        if(message.message == 'true'){
+        if(message.message){
           console.log('nalog vec postoji');
         }else{
           console.log('novi nalog');
