@@ -34,8 +34,10 @@ app.post('/webhook', function (req, res) {
 
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
-        if (event.message || event.postback) {
+        if (event.message) {
           receivedMessage(event);
+        }else if(event.postback){
+          receivedPostback(event);
         } else {
           console.log("Webhook received unknown event: ", event);
         }
@@ -77,7 +79,25 @@ function getUserInfo(token, sender, callback) {
 
 
 
-
+function receivedPostback(event){
+  var senderID = event.sender.id;
+  var recipientID = event.recipient.id;
+  var timeOfMessage = event.timestamp;
+  var message = event.message;
+  console.log(event.postback.payload);
+  sendTextMessage(senderID, event.postback.payload);
+            // let payload = event.postback.payload;
+            // console.log(payload);
+            // sendTextMessage(senderID, payload);
+            // console.log(payload);
+            // sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
+            //   console.log(data);
+            //   sendTextMessage(senderID, data.body);
+            //   setTimeout(function () {
+            //     sendOptionMessage(senderID, data);
+            //   }, 500);
+            // });
+}
 
 function receivedMessage(event) {
   var senderID = event.sender.id;
@@ -92,11 +112,9 @@ function receivedMessage(event) {
   var messageId = message.mid;
 
   var messageText = message.text;
-  var messagePostback = event.postback;
+
   var messageAttachments = message.attachments;
-  if(messagePostback){
-    console.log(event.postback.payload); 
-  }
+  
   if (messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
@@ -158,20 +176,7 @@ function receivedMessage(event) {
 
       }
     }
-  } else if (messagePostback) {
-            console.log('true');
-            // let payload = event.postback.payload;
-            // console.log(payload);
-            // sendTextMessage(senderID, payload);
-            // console.log(payload);
-            // sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
-            //   console.log(data);
-            //   sendTextMessage(senderID, data.body);
-            //   setTimeout(function () {
-            //     sendOptionMessage(senderID, data);
-            //   }, 500);
-            // });
-        }
+  } 
   else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
