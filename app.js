@@ -70,6 +70,8 @@ function getUserInfo(token, sender, callback) {
                 console.log('Error: ', response.body.error);
             } else {
                 var data = JSON.parse(body);
+                console.log("user data:" +data);
+                // saveUser();
                 return callback(data, sender);
 
 
