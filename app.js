@@ -92,7 +92,7 @@ function saveUser(sender, data){
             locale: data.locale
   };
   request({
-            url: 'http://lsapp.apps-codeit.com/api/facebook/store',
+            url: 'http://lsapp.apps-codeit.com/api/facebook',
             method: 'POST',
             json: userData
         }, function (error, response, body) {
