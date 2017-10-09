@@ -90,10 +90,13 @@ function receivedMessage(event) {
   console.log(JSON.stringify(message));
 
   var messageId = message.mid;
-
+  
   var messageText = message.text;
+  var messagePostback = event.postback;
   var messageAttachments = message.attachments;
-
+  if(messagePostback){
+    console.log(event.postback.payload;); 
+  }
   if (messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
@@ -155,7 +158,7 @@ function receivedMessage(event) {
 
       }
     }
-  } else if (event.postback) {
+  } else if (messagePostback) {
             console.log('true');
             // let payload = event.postback.payload;
             // console.log(payload);
@@ -169,7 +172,7 @@ function receivedMessage(event) {
             //   }, 500);
             // });
         }
- else if (messageAttachments) {
+  else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
 }
