@@ -204,7 +204,7 @@ function receivedMessage(event) {
           break;
         case 'zdravo':
               checkUser(senderID, function(senderId, message){
-                if(message.message){
+                if(message.message == 'false'){
                   console.log('nalog vec postoji');
                   user_info = getUserInfo(token, senderID, function(data,senderID){
             
@@ -217,7 +217,7 @@ function receivedMessage(event) {
                 }else{
                   console.log('novi nalog');
                   user_info = getUserInfo(token, senderID, function(data,senderID){
-            
+                          saveUser(senderID, data);
                           sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
                           setTimeout(function () {
                             sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
