@@ -204,7 +204,7 @@ function receivedMessage(event) {
           break;
         case 'zdravo':
               checkUser(senderID, function(senderId, message){
-                if(message.message == 'false'){
+                if(message.message == 'true'){
                   console.log('nalog vec postoji');
                   user_info = getUserInfo(token, senderID, function(data,senderID){
             
