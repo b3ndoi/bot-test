@@ -79,6 +79,8 @@ function getUserInfo(token, sender, callback) {
         });
     }
 
+
+
 function saveUser(sender, data){
   var timezone = data.timezone > 0 ?
             '+' + data.timezone : data.timezone;
@@ -100,6 +102,22 @@ function saveUser(sender, data){
                 console.log('Error sending message: ', error);
             } else if (response.body.error) {
                 console.log('Error: ', response.body.error);
+            }
+        });
+}
+
+function checkUser(sender, callback) {
+        request({
+            url: 'http://lsapp.apps-codeit.com/api/posts/' + sender,
+            method: 'GET'
+        }, function (error, response, body) {
+            if (error) {
+                console.log('Error getting user data: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            } else {
+                var message = JSON.parse(body);
+                callback(sender, message);
             }
         });
 }
@@ -171,7 +189,13 @@ function receivedMessage(event) {
         sendTextMessage(senderID, 'Morate uneti broj');
       }
     }else{
-
+      checkUser(senderID, function(senderId, message){
+        if(message.message == 'true'){
+          console.log('nalog vec postoji');
+        }else{
+          console.log('novi nalog');
+        }
+      });
       switch (messageText.toLowerCase()) {
         case 'generic':
           sendGenericMessage(senderID);
