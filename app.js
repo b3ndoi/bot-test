@@ -193,6 +193,7 @@ function receivedMessage(event) {
       checkUser(senderID, function(senderId, message){
         if(message.message){
           console.log('nalog vec postoji');
+          novi_korisnik = false;
         }else{
           console.log('novi nalog');
         }
@@ -209,9 +210,10 @@ function receivedMessage(event) {
                           setTimeout(function () {
                             sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
                           }, 500);
-                        });}else{
-                          sendTextMessage(senderID, 'Znamo se');
-                        }
+                        });
+            }else{
+              sendTextMessage(senderID, 'Znamo se');
+            }
 
           break;
         case 'da želim':{
