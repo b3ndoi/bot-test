@@ -159,7 +159,7 @@ function receivedMessage(event) {
     }
   } else if (event.postback) {
             let payload = event.postback.payload;
-            console.log(payload);
+            sendTextMessage(senderID, payload);
             sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
               console.log(data);
               sendTextMessage(senderID, data.body);
