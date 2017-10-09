@@ -145,7 +145,6 @@ function receivedMessage(event) {
         case 'jesam':{
 
           user_info = getUserInfo(token, senderID, function(data,senderID){
-            console.log(data);
             sendTextMessage(senderID, 'Draga '+data.first_name+', čestitam ti! U kojoj si nedelji trudnoće?( npr: 8 )');
             brojevi = true;
           });
@@ -159,7 +158,9 @@ function receivedMessage(event) {
     }
   } else if (event.postback) {
             let payload = event.postback.payload;
+            console.log(payload);
             sendTextMessage(senderID, payload);
+            console.log(payload);
             sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
               console.log(data);
               sendTextMessage(senderID, data.body);
