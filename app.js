@@ -190,30 +190,42 @@ function receivedMessage(event) {
         sendTextMessage(senderID, 'Morate uneti broj');
       }
     }else{
-      checkUser(senderID, function(senderId, message){
-        if(message.message){
-          console.log('nalog vec postoji');
-          novi_korisnik = false;
-        }else{
-          console.log('novi nalog');
-        }
-      });
+      // checkUser(senderID, function(senderId, message){
+      //   if(message.message){
+      //     console.log('nalog vec postoji');
+      //     novi_korisnik = false;
+      //   }else{
+      //     console.log('novi nalog');
+      //   }
+      // });
       switch (messageText.toLowerCase()) {
         case 'generic':
           sendGenericMessage(senderID);
           break;
         case 'zdravo':
-            if(novi_korisnik){
-                        user_info = getUserInfo(token, senderID, function(data,senderID){
+              checkUser(senderID, function(senderId, message){
+                if(message.message){
+                  console.log('nalog vec postoji');
+                  user_info = getUserInfo(token, senderID, function(data,senderID){
+            
+                          sendTextMessage(senderID, 'Znamo se '+data.first_name+' :)');
+                          setTimeout(function () {
+                            sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
+                          }, 500);
+                        });
+                  novi_korisnik = false;
+                }else{
+                  console.log('novi nalog');
+                  user_info = getUserInfo(token, senderID, function(data,senderID){
             
                           sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
                           setTimeout(function () {
                             sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
                           }, 500);
                         });
-            }else{
-              sendTextMessage(senderID, 'Znamo se');
-            }
+                }
+              });
+
 
           break;
         case 'da želim':{
