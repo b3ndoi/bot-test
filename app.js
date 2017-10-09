@@ -85,17 +85,24 @@ function receivedPostback(event){
   var timeOfMessage = event.timestamp;
   var message = event.message;
   console.log(event.postback.payload);
-            let payload = event.postback.payload;
-            console.log(payload);
-            sendTextMessage(senderID, payload);
-            console.log(payload);
-            sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
-              console.log(data);
-              sendTextMessage(senderID, data.body);
-              setTimeout(function () {
-                sendOptionMessage(senderID, data);
-              }, 500);
-            });
+  let payload = event.postback.payload;
+  if(payload.substring(2, payload.length) == 'savet'){
+    sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
+      console.log(data);
+      sendTextMessage(senderID, data.body);
+      setTimeout(function () {
+        sendOptionMessage(senderID, data);
+      }, 500);
+    });}
+  else if(payload.substring(2, payload.length) == 'ocekivanja'){
+    sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
+      console.log(data);
+      sendTextMessage(senderID, data.text);
+      setTimeout(function () {
+        sendOptionMessage(senderID, data);
+      }, 500);
+    });}
+  }
 }
 
 function receivedMessage(event) {
@@ -232,7 +239,7 @@ function sendOptionMessage(recipientId, messageText) {
           },{
             "type":"postback",
             "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?",
-            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+            "payload":messageText.id+".ocekivanja"
           },
         ]
       }
