@@ -85,18 +85,17 @@ function receivedPostback(event){
   var timeOfMessage = event.timestamp;
   var message = event.message;
   console.log(event.postback.payload);
-  sendTextMessage(senderID, event.postback.payload);
-            // let payload = event.postback.payload;
-            // console.log(payload);
-            // sendTextMessage(senderID, payload);
-            // console.log(payload);
-            // sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
-            //   console.log(data);
-            //   sendTextMessage(senderID, data.body);
-            //   setTimeout(function () {
-            //     sendOptionMessage(senderID, data);
-            //   }, 500);
-            // });
+            let payload = event.postback.payload;
+            console.log(payload);
+            sendTextMessage(senderID, payload);
+            console.log(payload);
+            sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
+              console.log(data);
+              sendTextMessage(senderID, data.body);
+              setTimeout(function () {
+                sendOptionMessage(senderID, data);
+              }, 500);
+            });
 }
 
 function receivedMessage(event) {
