@@ -71,7 +71,7 @@ function getUserInfo(token, sender, callback) {
             } else {
                 var data = JSON.parse(body);
                 console.log(data);
-                
+
                 return callback(data, sender);
 
 
@@ -152,7 +152,7 @@ function receivedPostback(event){
       }, 500);
     });
   }
-  
+
 }
 
 function receivedMessage(event) {
@@ -170,7 +170,7 @@ function receivedMessage(event) {
   var messageText = message.text;
 
   var messageAttachments = message.attachments;
-  
+
   if (messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
@@ -207,7 +207,7 @@ function receivedMessage(event) {
                 if(message.message == 'true'){
                   console.log('nalog vec postoji');
                   user_info = getUserInfo(token, senderID, function(data,senderID){
-            
+
                           sendTextMessage(senderID, 'Znamo se '+data.first_name+' :)');
                           setTimeout(function () {
                             sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
@@ -262,7 +262,7 @@ function receivedMessage(event) {
 
       }
     }
-  } 
+  }
   else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
@@ -315,7 +315,7 @@ function sendOptionMessage(recipientId, messageText) {
             "type":"postback",
             "title":"SAVET ZA OVU NEDELJU",
             "payload": messageText.id+".savet"
-            
+
           },{
             "type":"postback",
             "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?",
