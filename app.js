@@ -57,6 +57,7 @@ app.post('/webhook', function (req, res) {
 app.post('/bot', function (req, res) {
   var data = req.body;
   console.log(data);
+  sendTextMessage(data.senderID, data.message);
   // Make sure this is a page subscription
     // Assume all went well.
     //
