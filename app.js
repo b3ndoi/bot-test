@@ -54,17 +54,18 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-// app.post('/webhook', function (req, res) {
-//   var data = req.body;
-//   // Make sure this is a page subscription
-//     // Assume all went well.
-//     //
-//     // You must send back a 200, within 20 seconds, to let us know
-//     // you've successfully received the callback. Otherwise, the request
-//     // will time out and we will keep trying to resend.
-//     res.sendStatus(200);
-//   }
-// });
+app.post('/bot', function (req, res) {
+  var data = req.body;
+  console.log(data);
+  // Make sure this is a page subscription
+    // Assume all went well.
+    //
+    // You must send back a 200, within 20 seconds, to let us know
+    // you've successfully received the callback. Otherwise, the request
+    // will time out and we will keep trying to resend.
+    res.sendStatus(200);
+  }
+});
 
 
 function getUserInfo(token, sender, callback) {
