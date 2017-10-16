@@ -3,6 +3,7 @@ var request = require('request');
 var parser = require('body-parser');
 
 const sendAPI = require('./modules/handlers');
+const messages = require('./module/messages');
 
 var app = express();
 var port = process.env.PORT || 8080;
@@ -242,7 +243,7 @@ function receivedMessage(event) {
                   console.log('nalog vec postoji');
                   user_info = getUserInfo(token, senderID, function(data,senderID){
 
-                          sendTextMessage(senderID, 'Znamo se '+data.first_name+' :)');
+                          messages.sendTextMessage(senderID, 'Znamo se '+data.first_name+' :)');
                           setTimeout(function () {
                             sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
                           }, 500);
