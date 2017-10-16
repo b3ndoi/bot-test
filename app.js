@@ -245,7 +245,7 @@ function receivedMessage(event) {
 
                           messages.sendTextMessage(senderID, 'Znamo se '+data.first_name+' :)');
                           setTimeout(function () {
-                            sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
+                            messages.sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
                           }, 500);
                         });
                   novi_korisnik = false;
@@ -253,9 +253,9 @@ function receivedMessage(event) {
                   console.log('novi nalog');
                   user_info = getUserInfo(token, senderID, function(data,senderID){
                           saveUser(senderID, data);
-                          sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
+                          messages.sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
                           setTimeout(function () {
-                            sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
+                            messages.sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
                           }, 500);
                         });
                 }
@@ -268,7 +268,7 @@ function receivedMessage(event) {
           checkUser(senderID, function(senderId, message){
             if(message.datum_porodjaja){
               user_info = getUserInfo(token, senderID, function(data,senderID){
-                sendTextMessage(senderID, 'Draga '+data.first_name+', sada si u '+message.datum_porodjaja+" nedelji trudnoće.");
+                messages.sendTextMessage(senderID, 'Draga '+data.first_name+', sada si u '+message.datum_porodjaja+" nedelji trudnoće.");
                   console.log(message);
                 sendOffers(message.datum_porodjaja_da , senderID, function(senderID, data, broj){
                   console.log(data);
