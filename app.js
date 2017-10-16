@@ -168,9 +168,9 @@ function receivedPostback(event){
 
     sendOffers(payload.substring(0, 11), senderID, function(senderID, data, broj){
       console.log(data);
-      sendTextMessage(senderID, data.body);
+      messages.sendTextMessage(senderID, data.body);
       setTimeout(function () {
-        sendOptionMessage(senderID, data, broj);
+        messages.sendOptionMessage(senderID, data, broj);
       }, 500);
     });
 
@@ -179,9 +179,9 @@ function receivedPostback(event){
 
     sendOffers(payload.substring(0, 11), senderID, function(senderID, data, broj){
       console.log(data);
-      sendTextMessage(senderID, data.tekst);
+      messages.sendTextMessage(senderID, data.tekst);
       setTimeout(function () {
-        sendOptionMessage(senderID, data, broj);
+        messages.sendOptionMessage(senderID, data, broj);
       }, 500);
     });
   }
@@ -216,12 +216,12 @@ function receivedMessage(event) {
           if(!data.status){
             brojevi = false;
             updateUser(senderID, broj);
-            sendTextMessage(senderID, data.title);
+            messages.sendTextMessage(senderID, data.title);
             setTimeout(function () {
-              sendOptionMessage(senderID, data, broj);
+              messages.sendOptionMessage(senderID, data, broj);
             }, 500);
           }else{
-            sendTextMessage(senderID, data.message);
+            messages.sendTextMessage(senderID, data.message);
           }
         });
     }else{
@@ -275,19 +275,19 @@ function receivedMessage(event) {
 
                   if(!data.status){
                     brojevi = false;
-                    sendTextMessage(senderID, data.title);
+                    messages.sendTextMessage(senderID, data.title);
                     setTimeout(function () {
-                      sendOptionMessage(senderID, data, broj);
+                      messages.sendOptionMessage(senderID, data, broj);
                     }, 500);
                   }else{
-                    sendTextMessage(senderID, data.message);
+                    messages.sendTextMessage(senderID, data.message);
                   }
                 });
 
               });
             }else{
               user_info = getUserInfo(token, senderID, function(data,senderID){
-                sendChoiceMessage(senderID, 'Draga '+data.first_name+', da li si trudna?',"Jesam","Ne nisam");
+                messages.sendChoiceMessage(senderID, 'Draga '+data.first_name+', da li si trudna?',"Jesam","Ne nisam");
               });
             }
           });
@@ -295,26 +295,26 @@ function receivedMessage(event) {
         }
         case 'ne hvala':{
 
-          sendTextMessage(senderID, 'Prijatno');
+          messages.sendTextMessage(senderID, 'Prijatno');
           break;
         }
         case 'jesam':{
 
           user_info = getUserInfo(token, senderID, function(data,senderID){
-            sendTextMessage(senderID, 'Draga '+data.first_name+', čestitam ti! U kojoj si nedelji trudnoće?( npr: 8 )');
+            messages.sendTextMessage(senderID, 'Draga '+data.first_name+', čestitam ti! U kojoj si nedelji trudnoće?( npr: 8 )');
             brojevi = true;
           });
           break;
         }
         default:
 
-          sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
+          messages.sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
 
       }
     }
   }
   else if (messageAttachments) {
-    sendTextMessage(senderID, "Message with attachment received");
+    messages.sendTextMessage(senderID, "Message with attachment received");
   }
 }
 

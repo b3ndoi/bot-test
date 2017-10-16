@@ -13,6 +13,42 @@ exports.sendTextMessage = function (recipientId, messageText) {
 
   sendAPI(messageData);
 }
+exports.sendOptionMessage = function (recipientId, messageText, broj) {
+  console.log(messageText);
+  console.log(broj);
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"Šta prvo želite da saznate",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"VAŠA TRUDNOĆA U 8 NEDELJI",
+            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+          },{
+            "type":"postback",
+            "title":"SAVET ZA OVU NEDELJU",
+            "payload": broj+"savet"
+
+          },{
+            "type":"postback",
+            "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?",
+            "payload": broj+"ocekivanja"
+          },
+        ]
+      }
+      }
+    }
+  };
+
+  sendAPI(messageData);
+}
 
 exports.sendChoiceMessage = function (recipientId, messageText, yes, no) {
   var messageData = {
