@@ -165,22 +165,22 @@ function receivedPostback(event){
 
   if(payload.substring(11, payload.length) == 'savet'){
 
-    sendOffers(payload.substring(0, 11), senderID, function(senderID, data){
+    sendOffers(payload.substring(0, 11), senderID, function(senderID, data, broj){
       console.log(data);
       sendTextMessage(senderID, data.body);
       setTimeout(function () {
-        sendOptionMessage(senderID, data);
+        sendOptionMessage(senderID, data, broj);
       }, 500);
     });
 
   }
   else if(payload.substring(11, payload.length) == 'ocekivanja'){
 
-    sendOffers(payload.substring(0, 11), senderID, function(senderID, data){
+    sendOffers(payload.substring(0, 11), senderID, function(senderID, data, broj){
       console.log(data);
       sendTextMessage(senderID, data.tekst);
       setTimeout(function () {
-        sendOptionMessage(senderID, data);
+        sendOptionMessage(senderID, data, broj);
       }, 500);
     });
   }
