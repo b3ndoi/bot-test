@@ -163,9 +163,9 @@ function receivedPostback(event){
   console.log(event.postback.payload);
   let payload = event.postback.payload;
 
-  if(payload.substring(2, payload.length) == 'savet'){
+  if(payload.substring(11, payload.length) == 'savet'){
 
-    sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
+    sendOffers(payload.substring(0, 11), senderID, function(senderID, data){
       console.log(data);
       sendTextMessage(senderID, data.body);
       setTimeout(function () {
@@ -174,9 +174,9 @@ function receivedPostback(event){
     });
 
   }
-  else if(payload.substring(2, payload.length) == 'ocekivanja'){
+  else if(payload.substring(11, payload.length) == 'ocekivanja'){
 
-    sendOffers(Number(payload.substring(0, 1)), senderID, function(senderID, data){
+    sendOffers(payload.substring(0, 11), senderID, function(senderID, data){
       console.log(data);
       sendTextMessage(senderID, data.tekst);
       setTimeout(function () {
@@ -217,7 +217,7 @@ function receivedMessage(event) {
             updateUser(senderID, broj);
             sendTextMessage(senderID, data.title);
             setTimeout(function () {
-              sendOptionMessage(senderID, data);
+              sendOptionMessage(senderID, data, broj);
             }, 500);
           }else{
             sendTextMessage(senderID, data.message);
@@ -267,7 +267,22 @@ function receivedMessage(event) {
           checkUser(senderID, function(senderId, message){
             if(message.datum_porodjaja){
               user_info = getUserInfo(token, senderID, function(data,senderID){
-                sendTextMessage(senderID, 'Draga '+data.first_name+', datum porodjaja '+message.datum_porodjaja);
+                sendTextMessage(senderID, 'Draga '+data.first_name+', sada si u '+message.datum_porodjaja+" nedelji trudnoće.");
+
+                sendOffers(messageText, senderID, function(senderID, data, broj){
+                  console.log(data);
+
+                  if(!data.status){
+                    brojevi = false;
+                    sendTextMessage(senderID, data.title);
+                    setTimeout(function () {
+                      sendOptionMessage(senderID, data);
+                    }, 500);
+                  }else{
+                    sendTextMessage(senderID, data.message);
+                  }
+                });
+
               });
             }else{
               user_info = getUserInfo(token, senderID, function(data,senderID){
@@ -328,7 +343,7 @@ function sendTextMessage(recipientId, messageText) {
   sendAPI(messageData);
 }
 
-function sendOptionMessage(recipientId, messageText) {
+function sendOptionMessage(recipientId, messageText, broj) {
   console.log(messageText);
   var messageData = {
     recipient: {
@@ -348,12 +363,12 @@ function sendOptionMessage(recipientId, messageText) {
           },{
             "type":"postback",
             "title":"SAVET ZA OVU NEDELJU",
-            "payload": messageText.id+".savet"
+            "payload": broj+"savet"
 
           },{
             "type":"postback",
             "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?",
-            "payload":messageText.id+".ocekivanja"
+            "payload":broj+"ocekivanja"
           },
         ]
       }
