@@ -269,7 +269,7 @@ function receivedMessage(event) {
               user_info = getUserInfo(token, senderID, function(data,senderID){
                 sendTextMessage(senderID, 'Draga '+data.first_name+', sada si u '+message.datum_porodjaja+" nedelji trudnoće.");
 
-                sendOffers(messageText, senderID, function(senderID, data, broj){
+                sendOffers(message.datum_porodjaja_da , senderID, function(senderID, data, broj){
                   console.log(data);
 
                   if(!data.status){
@@ -368,7 +368,7 @@ function sendOptionMessage(recipientId, messageText, broj) {
           },{
             "type":"postback",
             "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?",
-            "payload":broj+"ocekivanja"
+            "payload": broj+"ocekivanja"
           },
         ]
       }
