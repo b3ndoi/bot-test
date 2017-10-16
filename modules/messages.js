@@ -50,6 +50,60 @@ exports.sendOptionMessage = function (recipientId, messageText, broj) {
   sendAPI(messageData);
 }
 
+exports.sendGenericMessage = function(recipientId, messageText) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Bebac Web Site",
+            subtitle: "Poseti bebac sajt",
+            item_url: "https://www.bebac.com/",
+            buttons: [{
+              type: "web_url",
+              url: "https://www.bebac.com/",
+              title: "Poseti sajt"
+            }],
+          }, {
+            title: "Bebac Android aplikacija",
+            subtitle: "Skini Android Bebac aplikaciju",
+            item_url: "https://play.google.com/store/apps/details?id=com.degree361.bebac",
+            buttons: [{
+              type: "web_url",
+              url: "https://play.google.com/store/apps/details?id=com.degree361.bebac",
+              title: "Open Web URL"
+            }, {
+              type: "web_url",
+              url: "https://www.bebac.com/",
+              title: "Poseti sajt"
+            }]
+          }, {
+            title: "Bebac iOS aplikacija",
+            subtitle: "Skini iOS Bebac aplikaciju",
+            item_url: "https://itunes.apple.com/us/app/bebac/id815085291?mt=8",
+            buttons: [{
+              type: "web_url",
+              url: "https://itunes.apple.com/us/app/bebac/id815085291?mt=8",
+              title: "Open Web URL"
+            }, {
+              type: "web_url",
+              url: "https://www.bebac.com/",
+              title: "Poseti sajt"
+            }]
+          }]
+        }
+      }
+    }
+  };
+
+  sendAPI(messageData);
+}
+
 exports.sendChoiceMessage = function (recipientId, messageText, yes, no) {
   var messageData = {
     recipient: {
