@@ -71,32 +71,6 @@ app.post('/bot', function (req, res) {
     res.sendStatus(200);
 });
 
-
-function getUserInfo(token, sender, callback) {
-
-        request({
-            url: 'https://graph.facebook.com/v2.6/' + sender,
-            qs: {
-                fields: 'first_name,last_name,profile_pic,timezone,locale,gender',
-                access_token: token
-            },
-            method: 'GET'
-        }, function (error, response, body) {
-            if (error) {
-                console.log('Error getting user data: ', error);
-            } else if (response.body.error) {
-                console.log('Error: ', response.body.error);
-            } else {
-                var data = JSON.parse(body);
-                console.log(data);
-
-                return callback(data, sender);
-
-
-            }
-        });
-    }
-
 function updateUser(sender, data){
 
       var userData = {
@@ -252,7 +226,7 @@ function receivedMessage(event) {
                   novi_korisnik = false;
                 }else{
                   console.log('novi nalog');
-                  user_info = getUserInfo(token, senderID, function(data,senderID){
+                  user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
                           saveUser(senderID, data);
                           messages.sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
                           setTimeout(function () {
@@ -268,7 +242,7 @@ function receivedMessage(event) {
 
           checkUser(senderID, function(senderId, message){
             if(message.datum_porodjaja){
-              user_info = getUserInfo(token, senderID, function(data,senderID){
+              user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
                 messages.sendTextMessage(senderID, 'Draga '+data.first_name+', sada si u '+message.datum_porodjaja+" nedelji trudnoće.");
                   console.log(message);
                 sendOffers(message.datum_porodjaja_da , senderID, function(senderID, data, broj){
@@ -287,7 +261,7 @@ function receivedMessage(event) {
 
               });
             }else{
-              user_info = getUserInfo(token, senderID, function(data,senderID){
+              user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
                 messages.sendChoiceMessage(senderID, 'Draga '+data.first_name+', da li si trudna?',"Jesam","Ne nisam");
               });
             }
@@ -301,7 +275,7 @@ function receivedMessage(event) {
         }
         case 'jesam':{
 
-          user_info = getUserInfo(token, senderID, function(data,senderID){
+          user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
             messages.sendTextMessage(senderID, 'Draga '+data.first_name+', čestitam ti! U kojoj si nedelji trudnoće?( npr: 8 )');
             brojevi = true;
           });
