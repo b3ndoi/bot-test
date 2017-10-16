@@ -263,10 +263,18 @@ function receivedMessage(event) {
 
           break;
         case 'da želim':{
-          user_info = getUserInfo(token, senderID, function(data,senderID){
-            sendChoiceMessage(senderID, 'Draga '+data.first_name+', da li si trudna?',"Jesam","Ne nisam");
-          });
 
+          checkUser(senderID, function(senderId, message){
+            if(message.datum_porodjaja){
+              user_info = getUserInfo(token, senderID, function(data,senderID){
+                sendTextMessage(senderID, 'Draga '+data.first_name+', datum porodjaja '+message.datum_porodjaja);
+              });
+            }else{
+              user_info = getUserInfo(token, senderID, function(data,senderID){
+                sendChoiceMessage(senderID, 'Draga '+data.first_name+', da li si trudna?',"Jesam","Ne nisam");
+              });
+            }
+          });
           break;
         }
         case 'ne hvala':{
@@ -279,13 +287,6 @@ function receivedMessage(event) {
           user_info = getUserInfo(token, senderID, function(data,senderID){
             sendTextMessage(senderID, 'Draga '+data.first_name+', čestitam ti! U kojoj si nedelji trudnoće?( npr: 8 )');
             brojevi = true;
-          });
-          break;
-        }
-        case 'indzu?':{
-
-          user_info = getUserInfo(token, senderID, function(data,senderID){
-            sendTextMessage(senderID, 'Jesi '+data.first_name+', indžu šino? Narkomane');
           });
           break;
         }
