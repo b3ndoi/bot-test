@@ -268,7 +268,7 @@ function receivedMessage(event) {
             if(message.datum_porodjaja){
               user_info = getUserInfo(token, senderID, function(data,senderID){
                 sendTextMessage(senderID, 'Draga '+data.first_name+', sada si u '+message.datum_porodjaja+" nedelji trudnoće.");
-
+                  console.log(message);
                 sendOffers(message.datum_porodjaja_da , senderID, function(senderID, data, broj){
                   console.log(data);
 
