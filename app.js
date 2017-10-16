@@ -95,7 +95,23 @@ function getUserInfo(token, sender, callback) {
         });
     }
 
+function updateUser(sender, data){
 
+      var userData = {
+                datum_porodjaja: data,
+      };
+      request({
+                url: 'http://lsapp.apps-codeit.com/api/facebook/'+sender,
+                method: 'PUT',
+                json: userData
+            }, function (error, response, body) {
+                if (error) {
+                    console.log('Error sending message: ', error);
+                } else if (response.body.error) {
+                    console.log('Error: ', response.body.error);
+                }
+            });
+    }
 
 function saveUser(sender, data){
   var timezone = data.timezone > 0 ?
@@ -193,11 +209,12 @@ function receivedMessage(event) {
     if(brojevi){
 
 
-        sendOffers(messageText, senderID, function(senderID, data){
+        sendOffers(messageText, senderID, function(senderID, data, broj){
           console.log(data);
 
           if(!data.status){
             brojevi = false;
+            updateUser(senderID, broj);
             sendTextMessage(senderID, data.title);
             setTimeout(function () {
               sendOptionMessage(senderID, data);
@@ -247,7 +264,6 @@ function receivedMessage(event) {
           break;
         case 'da želim':{
           user_info = getUserInfo(token, senderID, function(data,senderID){
-
             sendChoiceMessage(senderID, 'Draga '+data.first_name+', da li si trudna?',"Jesam","Ne nisam");
           });
 
@@ -436,7 +452,7 @@ function sendOffers(broj, sender, callback) {
                 console.log('Error: ', response.body.error);
             } else {
                 var offers = JSON.parse(body);
-                callback(sender, offers);
+                callback(sender, offers, broj);
             }
         });
 }
