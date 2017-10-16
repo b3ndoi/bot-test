@@ -3,7 +3,7 @@ var request = require('request');
 var parser = require('body-parser');
 
 const sendAPI = require('./modules/handlers');
-// const messages = require('./module/messages');
+const messages = require('./modules/messages');
 
 var app = express();
 var port = process.env.PORT || 8080;
