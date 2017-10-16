@@ -196,10 +196,14 @@ function receivedMessage(event) {
         sendOffers(Number(messageText), senderID, function(senderID, data){
           console.log(data);
           brojevi = false;
-          sendTextMessage(senderID, data.title);
-          setTimeout(function () {
-            sendOptionMessage(senderID, data);
-          }, 500);
+          if(!data.status){
+            sendTextMessage(senderID, data.title);
+            setTimeout(function () {
+              sendOptionMessage(senderID, data);
+            }, 500);
+          }else{
+            sendTextMessage(senderID, data.message);
+          }
         });
 
       }else{
