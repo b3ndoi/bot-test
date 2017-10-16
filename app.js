@@ -276,7 +276,7 @@ function receivedMessage(event) {
                     brojevi = false;
                     sendTextMessage(senderID, data.title);
                     setTimeout(function () {
-                      sendOptionMessage(senderID, data);
+                      sendOptionMessage(senderID, data, broj);
                     }, 500);
                   }else{
                     sendTextMessage(senderID, data.message);
