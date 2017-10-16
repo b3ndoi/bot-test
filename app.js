@@ -2,6 +2,8 @@ var express = require('express');
 var request = require('request');
 var parser = require('body-parser');
 
+const sendAPI = require('./modules/handlers');
+
 var app = express();
 var port = process.env.PORT || 8080;
 app.use(parser.json());
@@ -305,7 +307,7 @@ function sendTextMessage(recipientId, messageText) {
     }
   };
 
-  callSendAPI(messageData);
+  sendAPI(messageData);
 }
 
 function sendOptionMessage(recipientId, messageText) {
