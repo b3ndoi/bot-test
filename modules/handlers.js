@@ -2,7 +2,7 @@ const request = require('request');
 const parser = require('body-parser');
 
 
-sendAPI = callSendAPI(messageData) {
+var sendAPI = callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
     qs: { access_token:  token},
