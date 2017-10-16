@@ -345,6 +345,7 @@ function sendTextMessage(recipientId, messageText) {
 
 function sendOptionMessage(recipientId, messageText, broj) {
   console.log(messageText);
+  console.log(broj);
   var messageData = {
     recipient: {
       id: recipientId
