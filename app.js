@@ -195,8 +195,9 @@ function receivedMessage(event) {
 
         sendOffers(messageText, senderID, function(senderID, data){
           console.log(data);
-          brojevi = false;
+
           if(!data.status){
+            brojevi = false;
             sendTextMessage(senderID, data.title);
             setTimeout(function () {
               sendOptionMessage(senderID, data);
