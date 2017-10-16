@@ -191,9 +191,9 @@ function receivedMessage(event) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
     if(brojevi){
-      if(Number.isInteger(Number(messageText))){
 
-        sendOffers(Number(messageText), senderID, function(senderID, data){
+
+        sendOffers(messageText, senderID, function(senderID, data){
           console.log(data);
           brojevi = false;
           if(!data.status){
@@ -205,10 +205,6 @@ function receivedMessage(event) {
             sendTextMessage(senderID, data.message);
           }
         });
-
-      }else{
-        sendTextMessage(senderID, 'Morate uneti broj');
-      }
     }else{
       // checkUser(senderID, function(senderId, message){
       //   if(message.message){
