@@ -4,6 +4,7 @@ var parser = require('body-parser');
 
 const sendAPI = require('./modules/handlers');
 const messages = require('./modules/messages');
+const facebook = require('./modules/facebook');
 
 var app = express();
 var port = process.env.PORT || 8080;
@@ -241,7 +242,7 @@ function receivedMessage(event) {
               checkUser(senderID, function(senderId, message){
                 if(message.message == 'true'){
                   console.log('nalog vec postoji');
-                  user_info = getUserInfo(token, senderID, function(data,senderID){
+                  user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
 
                           messages.sendTextMessage(senderID, 'Znamo se '+data.first_name+' :)');
                           setTimeout(function () {
