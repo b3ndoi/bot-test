@@ -120,6 +120,22 @@ exports.sendChoiceMessage = function (recipientId, messageText, yes, no) {
           "content_type":"text",
           "title":no,
           "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+        },{
+          "content_type":"text",
+          "title":yes,
+          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+        },{
+          "content_type":"text",
+          "title":no,
+          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+        },{
+          "content_type":"text",
+          "title":yes,
+          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+        },{
+          "content_type":"text",
+          "title":no,
+          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
         },
       ]
     }
