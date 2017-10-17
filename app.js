@@ -59,79 +59,6 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-app.post('/bot', function (req, res) {
-  var data = req.body;
-  console.log(data);
-  sendTextMessage(data.senderID, data.message);
-  // Make sure this is a page subscription
-    // Assume all went well.
-    //
-    // You must send back a 200, within 20 seconds, to let us know
-    // you've successfully received the callback. Otherwise, the request
-    // will time out and we will keep trying to resend.
-    res.sendStatus(200);
-});
-
-function updateUser(sender, data){
-
-      var userData = {
-                datum_porodjaja: data,
-      };
-      request({
-                url: 'http://lsapp.apps-codeit.com/api/facebook/'+sender,
-                method: 'PUT',
-                json: userData
-            }, function (error, response, body) {
-                if (error) {
-                    console.log('Error sending message: ', error);
-                } else if (response.body.error) {
-                    console.log('Error: ', response.body.error);
-                }
-            });
-    }
-
-function saveUser(sender, data){
-  var timezone = data.timezone > 0 ?
-            '+' + data.timezone : data.timezone;
-  var userData = {
-            id: sender,
-            gender: data.gender,
-            first_name: data.first_name,
-            last_name: data.last_name,
-            profile_pic: data.profile_pic,
-            timezone: 'GMT ' + timezone + 'h',
-            locale: data.locale
-  };
-  request({
-            url: 'http://lsapp.apps-codeit.com/api/facebook',
-            method: 'POST',
-            json: userData
-        }, function (error, response, body) {
-            if (error) {
-                console.log('Error sending message: ', error);
-            } else if (response.body.error) {
-                console.log('Error: ', response.body.error);
-            }
-        });
-}
-
-function checkUser(sender, callback) {
-        request({
-            url: 'http://lsapp.apps-codeit.com/api/facebook/' + sender,
-            method: 'GET'
-        }, function (error, response, body) {
-            if (error) {
-                console.log('Error getting user data: ', error);
-            } else if (response.body.error) {
-                console.log('Error: ', response.body.error);
-            } else {
-                var message = JSON.parse(body);
-                console.log(message);
-                callback(sender, message);
-            }
-        });
-}
-
 function receivedPostback(event){
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
@@ -191,7 +118,7 @@ function receivedMessage(event) {
 
           if(!data.status){
             brojevi = false;
-            updateUser(senderID, broj);
+            user.updateUser(senderID, broj);
             messages.sendTextMessage(senderID, data.title);
             setTimeout(function () {
               messages.sendOptionMessage(senderID, data, broj);
@@ -228,7 +155,7 @@ function receivedMessage(event) {
                 }else{
                   console.log('novi nalog');
                   user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
-                          saveUser(senderID, data);
+                          user.saveUser(senderID, data);
                           messages.sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
                           setTimeout(function () {
                             messages.sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
@@ -241,7 +168,7 @@ function receivedMessage(event) {
           break;
         case 'da želim':{
 
-          checkUser(senderID, function(senderId, message){
+          user.checkUser(senderID, function(senderId, message){
             if(message.datum_porodjaja){
               user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
                 messages.sendTextMessage(senderID, 'Draga '+data.first_name+', sada si u '+message.datum_porodjaja+" nedelji trudnoće.");
