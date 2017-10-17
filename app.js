@@ -5,7 +5,7 @@ var parser = require('body-parser');
 const sendAPI = require('./modules/handlers');
 const messages = require('./modules/messages');
 const facebook = require('./modules/facebook');
-const facebook = require('./modules/user');
+const user = require('./modules/user');
 
 var app = express();
 var port = process.env.PORT || 8080;
