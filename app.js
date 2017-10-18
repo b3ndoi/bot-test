@@ -34,9 +34,9 @@ app.post('/webhook', function (req, res) {
   if (data.object === 'page') {
 
     // Iterate over each entry - there may be multiple if batched
-    if(data.quick_reply){
-      console.log('Naslo');
-    }
+    // if(data.quick_reply){
+    //   console.log('Naslo');
+    // }
     data.entry.forEach(function(entry) {
       var pageID = entry.id;
       var timeOfEvent = entry.time;
@@ -45,7 +45,7 @@ app.post('/webhook', function (req, res) {
       entry.messaging.forEach(function(event) {
         if (event.message) {
           receivedMessage(event);
-        }else if(event.postback||event.quick_reply.postback){
+        }else if(event.postback){
           receivedPostback(event);
         } else {
           console.log("Webhook received unknown event: ", event);
