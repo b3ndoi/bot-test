@@ -76,7 +76,7 @@ function receivedPostback(event){
 
         if(nedelja_trudnoce == 8){
           // messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
-          messages.sendChoiceMessageVerified(senderID,"Verified test","DA LI JE TEST ZA MENE","SAZNAJ VIŠE");
+          messages.sendChoiceMessageVerified(senderID,"Verified test","DA LI JE TEST ZA MENE","SAZNAJ VIŠE", "for_me", "about");
         }else{
           messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
         }
@@ -98,7 +98,7 @@ function receivedPostback(event){
 
     let tekst = 'Hajde da zajedno otkrijemo da li spadate u rizičnu grupu, odnosno da li treba da radite prenatalni Verified test.\n Koliko imate godina? ';
 
-    messages.sendChoiceMessageVerified(senderID,tekst,"MANJE OD 35","VIŠE OD 35");
+    messages.sendChoiceMessageVerified(senderID,tekst,"MANJE OD 35","VIŠE OD 35", "manje", "vise");
 
   }
 }

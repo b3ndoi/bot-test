@@ -128,7 +128,7 @@ exports.sendChoiceMessage = function (recipientId, messageText, yes, no) {
   sendAPI(messageData);
 }
 
-exports.sendChoiceMessageVerified = function (recipientId, messageText, yes, no) {
+exports.sendChoiceMessageVerified = function (recipientId, messageText, yes, no, payload_yes, payload_no) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -139,11 +139,11 @@ exports.sendChoiceMessageVerified = function (recipientId, messageText, yes, no)
         {
           "content_type":"text",
           "title":yes,
-          "payload":"for_me"
+          "payload":payload_yes
         },{
           "content_type":"text",
           "title":no,
-          "payload":"about"
+          "payload":payload_no
         }
       ]
     }
