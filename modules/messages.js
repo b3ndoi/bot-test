@@ -13,7 +13,7 @@ exports.sendTextMessage = function (recipientId, messageText) {
 
   sendAPI(messageData);
 }
-exports.sendOptionMessage = function (recipientId, messageText, broj) {
+exports.sendOptionMessage = function (recipientId, messageText, broj, nedelja_trudnoce) {
   console.log(messageText);
   console.log(broj);
   var messageData = {
@@ -29,17 +29,17 @@ exports.sendOptionMessage = function (recipientId, messageText, broj) {
         "buttons":[
           {
             "type":"postback",
-            "title":"VAŠA TRUDNOĆA U 8 NEDELJI",
+            "title":"VAŠA TRUDNOĆA U "+ nedelja_trudnoce +" NEDELJI",
             "payload":"DEVELOPER_DEFINED_PAYLOAD"
           },{
             "type":"postback",
             "title":"SAVET ZA OVU NEDELJU",
-            "payload": broj+"savet"
+            "payload": nedelja_trudnoce+"."+broj+"savet"
 
           },{
             "type":"postback",
             "title":"ŠTA JOŠ MOŽETE DA OČEKUJETE U OVOJ NEDELJI?",
-            "payload": broj+"ocekivanja"
+            "payload": nedelja_trudnoce+"."+broj+"ocekivanja"
           },
         ]
       }

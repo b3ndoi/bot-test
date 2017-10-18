@@ -5,7 +5,7 @@ var parser = require('body-parser');
 const messages = require('./modules/messages');
 const facebook = require('./modules/facebook');
 const user = require('./modules/user');
-const processor = require('./modules/processor'); 
+const processor = require('./modules/processor');
 
 var app = express();
 var port = process.env.PORT || 8080;
@@ -67,24 +67,24 @@ function receivedPostback(event){
   console.log(event.postback.payload);
   let payload = event.postback.payload;
 
-  if(payload.substring(11, payload.length) == 'savet'){
+  if(payload.substring(13, payload.length) == 'savet'){
 
-    sendOffers(payload.substring(0, 11), senderID, function(senderID, data, broj){
+    sendOffers(payload.substring(2, 13), senderID, payload.substring(0, 1), function(senderID, data, broj,nedelja_trudnoce){
       console.log(data);
       messages.sendTextMessage(senderID, data.body);
       setTimeout(function () {
-        messages.sendOptionMessage(senderID, data, broj);
+        messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
       }, 500);
     });
 
   }
-  else if(payload.substring(11, payload.length) == 'ocekivanja'){
+  else if(payload.substring(13, payload.length) == 'ocekivanja'){
 
-    sendOffers(payload.substring(0, 11), senderID, function(senderID, data, broj){
+    sendOffers(payload.substring(2, 13), senderID, payload.substring(0, 1), function(senderID, data, broj,nedelja_trudnoce){
       console.log(data);
       messages.sendTextMessage(senderID, data.tekst);
       setTimeout(function () {
-        messages.sendOptionMessage(senderID, data, broj);
+        messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
       }, 500);
     });
   }
@@ -113,7 +113,7 @@ function receivedMessage(event) {
     if(brojevi){
 
 
-        sendOffers(messageText, senderID, function(senderID, data, broj){
+        sendOffers(messageText, senderID, null, function(senderID, data, broj){
           console.log(data);
 
           if(!data.status){
@@ -121,7 +121,7 @@ function receivedMessage(event) {
             user.updateUser(senderID, broj);
             messages.sendTextMessage(senderID, data.title);
             setTimeout(function () {
-              messages.sendOptionMessage(senderID, data, broj);
+              messages.sendOptionMessage(senderID, data, broj, null);
             }, 500);
           }else{
             messages.sendTextMessage(senderID, data.message);
@@ -173,14 +173,14 @@ function receivedMessage(event) {
               user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
                 messages.sendTextMessage(senderID, 'Draga '+data.first_name+', sada si u '+message.datum_porodjaja+" nedelji trudnoće.");
                   console.log(message);
-                sendOffers(message.datum_porodjaja_da , senderID, function(senderID, data, broj){
+                sendOffers(message.datum_porodjaja_da , senderID, message.datum_porodjaja,function(senderID, data, broj, nedelja_trudnoce){
                   console.log(data);
 
                   if(!data.status){
                     brojevi = false;
                     messages.sendTextMessage(senderID, data.title);
                     setTimeout(function () {
-                      messages.sendOptionMessage(senderID, data, broj);
+                      messages.sendOptionMessage(senderID, data, broj, nedelja_trudnoce);
                     }, 500);
                   }else{
                     messages.sendTextMessage(senderID, data.message);
@@ -222,7 +222,7 @@ function receivedMessage(event) {
 }
 
 
-function sendOffers(broj, sender, callback) {
+function sendOffers(broj, sender, nedelja_trudnoce, callback) {
         request({
             url: 'http://lsapp.apps-codeit.com/api/posts/' + broj,
             method: 'GET'
@@ -233,7 +233,7 @@ function sendOffers(broj, sender, callback) {
                 console.log('Error: ', response.body.error);
             } else {
                 var offers = JSON.parse(body);
-                callback(sender, offers, broj);
+                callback(sender, offers, broj, nedelja_trudnoce);
             }
         });
 }
