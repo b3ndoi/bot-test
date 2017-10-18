@@ -2,10 +2,10 @@ var express = require('express');
 var request = require('request');
 var parser = require('body-parser');
 
-const sendAPI = require('./modules/handlers');
 const messages = require('./modules/messages');
 const facebook = require('./modules/facebook');
 const user = require('./modules/user');
+const processor = require('./modules/processor'); 
 
 var app = express();
 var port = process.env.PORT || 8080;
