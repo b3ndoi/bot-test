@@ -204,7 +204,7 @@ function receivedMessage(event) {
         case 'jesam':{
 
           user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
-            messages.sendTextMessage(senderID, 'Draga '+data.first_name+', čestitam ti! U kojoj si nedelji trudnoće?( npr: 8 )');
+            messages.sendTextMessage(senderID, 'Čestitamo '+data.first_name+' :)Želimo vam lepu i bezbrižnu trudnoću! Kad očekujete bebu? Upiši verovatni termin porođaja: DD.MM.GGGG.');
             brojevi = true;
           });
           break;
