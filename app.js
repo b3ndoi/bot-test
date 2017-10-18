@@ -113,7 +113,7 @@ function receivedMessage(event) {
     if(brojevi){
 
 
-        sendOffers(messageText, senderID, null, function(senderID, data, broj){
+        sendOffers(messageText, senderID, null, function(senderID, data, broj, nedelja_trudnoce){
           console.log(data);
 
           if(!data.status){
@@ -121,7 +121,7 @@ function receivedMessage(event) {
             user.updateUser(senderID, broj);
             messages.sendTextMessage(senderID, data.title);
             setTimeout(function () {
-              messages.sendOptionMessage(senderID, data, broj, null);
+              messages.sendOptionMessage(senderID, data, broj, nedelja_trudnoce);
             }, 500);
           }else{
             messages.sendTextMessage(senderID, data.message);
@@ -233,7 +233,7 @@ function sendOffers(broj, sender, nedelja_trudnoce, callback) {
                 console.log('Error: ', response.body.error);
             } else {
                 var offers = JSON.parse(body);
-                callback(sender, offers, broj, nedelja_trudnoce);
+                callback(sender, offers, broj, body.id);
             }
         });
 }
