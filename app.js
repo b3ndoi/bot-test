@@ -34,13 +34,16 @@ app.post('/webhook', function (req, res) {
   if (data.object === 'page') {
 
     // Iterate over each entry - there may be multiple if batched
+    if(data.quick_reply){
+      console.log('Naslo');
+    }
     data.entry.forEach(function(entry) {
       var pageID = entry.id;
       var timeOfEvent = entry.time;
 
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
-        if (event.message&&!event.postback) {
+        if (event.message) {
           receivedMessage(event);
         }else if(event.postback){
           receivedPostback(event);
