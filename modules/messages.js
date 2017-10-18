@@ -127,3 +127,27 @@ exports.sendChoiceMessage = function (recipientId, messageText, yes, no) {
 
   sendAPI(messageData);
 }
+
+exports.sendChoiceMessageVerified = function (recipientId, messageText, yes, no) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      "text": messageText,
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":yes,
+          "payload":"for_me"
+        },{
+          "content_type":"text",
+          "title":no,
+          "payload":"about"
+        }
+      ]
+    }
+  };
+
+  sendAPI(messageData);
+}
