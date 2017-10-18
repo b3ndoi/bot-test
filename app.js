@@ -94,7 +94,13 @@ function receivedPostback(event){
       }, 500);
     });
   }
+  else if(payload == 'for_me'){
 
+    let tekst = 'Hajde da zajedno otkrijemo da li spadate u rizičnu grupu, odnosno da li treba da radite prenatalni Verified test.\n Koliko imate godina? ';
+
+    messages.sendChoiceMessageVerified(senderID,tekst,"MANJE OD 35","VIŠE OD 35");
+
+  }
 }
 
 function receivedMessage(event) {
