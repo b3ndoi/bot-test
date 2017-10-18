@@ -233,7 +233,7 @@ function sendOffers(broj, sender, nedelja_trudnoce, callback) {
                 console.log('Error: ', response.body.error);
             } else {
                 var offers = JSON.parse(body);
-                callback(sender, offers, broj, body.id);
+                callback(sender, offers, broj, offers.id);
             }
         });
 }
