@@ -73,9 +73,12 @@ function receivedPostback(event){
       console.log(data);
       messages.sendTextMessage(senderID, data.body);
       setTimeout(function () {
-        messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
+
         if(nedelja_trudnoce == 8){
+          messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
           messages.sendChoiceMessage(senderID,"Verified test","ŽELIM DA SAZNAM DA LI JE VERIFIED TEST ZA MENE","ŽELIM DA SAZNAM VIŠE O VERIFIED TESTU ");
+        }else{
+          messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
         }
       }, 500);
     });
