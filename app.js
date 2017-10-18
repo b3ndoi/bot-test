@@ -76,7 +76,7 @@ function receivedPostback(event){
 
         if(nedelja_trudnoce == 8){
           // messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
-          messages.sendChoiceMessage(senderID,"Verified test","ŽELIM DA SAZNAM DA LI JE VERIFIED TEST ZA MENE","ŽELIM DA SAZNAM VIŠE O VERIFIED TESTU");
+          messages.sendChoiceMessage(senderID,"Verified test","DA LI JE TEST ZA MENE","SAZNAJ VIŠE");
         }else{
           messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
         }
