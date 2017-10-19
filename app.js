@@ -134,6 +134,11 @@ function receivedMessage(event) {
       messages.sendChoiceMessageVerified(senderID,tekst,"MANJE OD 35","VIŠE OD 35", "manje", "vise");
 
     }
+    if(message.quick_reply.payload == 'manje'){
+      let tekst = "Trudnice mlađe od 35 godina ne spadaju u kategoriju visokog rizika ali svakako postoji mogućnost za hromozomske poremećaje. Kako je rizik kod starijih trudnica veći, one se češće upućuju na testiranja dok se češće kod mlađih trudnica dogodi da ovi poremeđaji ostanu nezapaženi u trudnoći pa je npr veći broj rođene dece sa Daunovim sindromom kod mlađih trudnica. ";
+      messages.sendTextMessage(senderID, tekst);
+      messages.sendChoiceMessageVerified(senderID,"Da li je u porodici bilo genetskih poremećaja?","DA","NE", "da", "ne");
+    }
 
   }
   if (messageText) {
