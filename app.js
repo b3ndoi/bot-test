@@ -31,6 +31,9 @@ app.post('/webhook', function (req, res) {
   var data = req.body;
   console.log(data);
   // Make sure this is a page subscription
+  if(data.quick_reply){
+    console.log("Postback "+data.quick_reply);
+  }
   if (data.object === 'page') {
 
     // Iterate over each entry - there may be multiple if batched
@@ -43,9 +46,7 @@ app.post('/webhook', function (req, res) {
 
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
-        if(event.quick_reply){
-          console.log("Postback "+event.quick_reply);
-        }
+
         if (event.message) {
           receivedMessage(event);
         }else if(event.postback){
