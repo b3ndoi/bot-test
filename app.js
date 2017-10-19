@@ -6,7 +6,7 @@ const messages = require('./modules/messages');
 const facebook = require('./modules/facebook');
 const user = require('./modules/user');
 const processor = require('./modules/processor');
-
+console.log(messages);
 var app = express();
 var port = process.env.PORT || 8080;
 app.use(parser.json());
@@ -116,7 +116,7 @@ function receivedMessage(event) {
   var messageText = message.text;
 
   var messageAttachments = message.attachments;
-  if(message.quick_reply.payload){
+  if(message.quick_reply){
     if(message.quick_reply.payload == 'for_me'){
 
       let tekst = 'Hajde da zajedno otkrijemo da li spadate u rizičnu grupu, odnosno da li treba da radite prenatalni Verified test.\n Koliko imate godina? ';
@@ -126,7 +126,7 @@ function receivedMessage(event) {
     }
 
   }
-  if (messageText && !message.quick_reply) {
+  if (messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
     if(brojevi){
