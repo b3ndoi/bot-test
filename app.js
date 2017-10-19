@@ -46,18 +46,16 @@ app.post('/webhook', function (req, res) {
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
 
-        if(event.message.quick_reply){
-          let result = processor.match(event.message.quick_reply.payload);
+        if (event.message) {
+          let result = processor.match(event.message.text);
           if (result) {
                 let function_find = functions[result.handler];
                 if (function_find && typeof function_find === "function") {
-                    handler(sender, result.match);
+                    function_find(sender, result.match);
                 } else {
                     console.log("Handler " + result.handler + " is not defined");
                 }
             }
-        }
-        if (event.message) {
           receivedMessage(event);
         }else if(event.postback){
           receivedPostback(event);
