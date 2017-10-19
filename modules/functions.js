@@ -1,4 +1,4 @@
-const messages = require('./modules/messages');
+const messages = require('./messages');
 
 
 exports.for_me = (sender, values) => {
