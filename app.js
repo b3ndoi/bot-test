@@ -208,8 +208,8 @@ function receivedMessage(event) {
           break;
         }
         default:
-
-          messages.sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');
+          if(!message.quick_reply){
+          messages.sendTextMessage(senderID, 'Napišite "zdravo" da bi ste započeli...');}
 
       }
     }
