@@ -143,6 +143,15 @@ function receivedMessage(event) {
 
     }
 
+    if(message.quick_reply.payload == 'vise'){
+      let tekst = "Trudnice koje su starije od 35 godina imaju povećan rizik od hromozomskih poremećaja. Da biste bili sigurni u to da je vaša beba hromozomski zdrava uradite Verified prenatalni test.";
+      messages.sendTextMessage(senderID, tekst);
+      setTimeout(function () {
+        messages.sendChoiceMessageVerified(senderID,"Da li je u porodici bilo genetskih poremećaja?","DA","NE", "da", "ne");
+      }, 500);
+
+    }
+
     if(message.quick_reply.payload == 'da'){
       let tekst = "Ukoliko u vašoj porodici postoje hromozomopatije ili ste imali spontani pobačaj, kao i ako ste utvrdili postojanje hromozomopatije u predhodnoj trudnoći, vaša trudnoća je pod visokim rizikom od ovih poremećaja pa se preporučuje VERIFIED test.";
       messages.sendTextMessage(senderID, tekst);
