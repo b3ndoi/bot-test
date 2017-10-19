@@ -106,15 +106,7 @@ function receivedMessage(event) {
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
-  if(message.quick_reply){
-    if(message.quick_reply.payload == 'for_me'){
 
-      let tekst = 'Hajde da zajedno otkrijemo da li spadate u rizičnu grupu, odnosno da li treba da radite prenatalni Verified test.\n Koliko imate godina? ';
-
-      messages.sendChoiceMessageVerified(senderID,tekst,"MANJE OD 35","VIŠE OD 35", "manje", "vise");
-
-    }
-  }
   // console.log("Received message for user %d and page %d at %d with message:",
     // senderID, recipientID, timeOfMessage);
   console.log(JSON.stringify(message));
@@ -124,8 +116,17 @@ function receivedMessage(event) {
   var messageText = message.text;
 
   var messageAttachments = message.attachments;
+  if(message.quick_reply.payload){
+    if(message.quick_reply.payload == 'for_me'){
 
-  if (messageText && !message.quick_reply.payload) {
+      let tekst = 'Hajde da zajedno otkrijemo da li spadate u rizičnu grupu, odnosno da li treba da radite prenatalni Verified test.\n Koliko imate godina? ';
+
+      messages.sendChoiceMessageVerified(senderID,tekst,"MANJE OD 35","VIŠE OD 35", "manje", "vise");
+
+    }
+
+  }
+  if (messageText && !message.quick_reply) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
     if(brojevi){
