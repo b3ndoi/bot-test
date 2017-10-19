@@ -31,9 +31,7 @@ app.post('/webhook', function (req, res) {
   var data = req.body;
   console.log(data);
   // Make sure this is a page subscription
-  if(data.quick_reply){
-    console.log("Postback "+data.quick_reply);
-  }
+
   if (data.object === 'page') {
 
     // Iterate over each entry - there may be multiple if batched
@@ -115,7 +113,9 @@ function receivedMessage(event) {
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
-
+  if(event.quick_reply){
+    console.log("Postback "+event.quick_reply);
+  }
   // console.log("Received message for user %d and page %d at %d with message:",
     // senderID, recipientID, timeOfMessage);
   console.log(JSON.stringify(message));
