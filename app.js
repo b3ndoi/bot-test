@@ -99,13 +99,6 @@ function receivedPostback(event){
       }, 500);
     });
   }
-  else if(payload == 'for_me'){
-
-    let tekst = 'Hajde da zajedno otkrijemo da li spadate u rizičnu grupu, odnosno da li treba da radite prenatalni Verified test.\n Koliko imate godina? ';
-
-    messages.sendChoiceMessageVerified(senderID,tekst,"MANJE OD 35","VIŠE OD 35", "manje", "vise");
-
-  }
 }
 
 function receivedMessage(event) {
@@ -114,7 +107,13 @@ function receivedMessage(event) {
   var timeOfMessage = event.timestamp;
   var message = event.message;
   if(message.quick_reply){
-    console.log("Postback "+message.quick_reply.payload);
+    if(message.quick_reply.payload == 'for_me'){
+
+      let tekst = 'Hajde da zajedno otkrijemo da li spadate u rizičnu grupu, odnosno da li treba da radite prenatalni Verified test.\n Koliko imate godina? ';
+
+      messages.sendChoiceMessageVerified(senderID,tekst,"MANJE OD 35","VIŠE OD 35", "manje", "vise");
+
+    }
   }
   // console.log("Received message for user %d and page %d at %d with message:",
     // senderID, recipientID, timeOfMessage);
