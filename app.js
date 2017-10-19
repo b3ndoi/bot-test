@@ -169,32 +169,6 @@ function receivedMessage(event) {
         case 'generic':
           messages.sendGenericMessage(senderID);
           break;
-        case 'zdravo':
-              user.checkUser(senderID, function(senderId, message){
-                if(message.message == 'true'){
-                  console.log('nalog vec postoji');
-                  user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
-
-                          messages.sendTextMessage(senderID, 'Znamo se '+data.first_name+' :)');
-                          setTimeout(function () {
-                            messages.sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
-                          }, 500);
-                        });
-                  novi_korisnik = false;
-                }else{
-                  console.log('novi nalog');
-                  user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
-                          user.saveUser(senderID, data);
-                          messages.sendTextMessage(senderID, 'Dobrodošla '+data.first_name+' u Bebac porodicu! Ja sam tvoj Bebac savetnik i tu sam da pomognem tebi i tvojoj bebi. :)');
-                          setTimeout(function () {
-                            messages.sendChoiceMessage(senderID,"Da li želiš da pričamo?","Da želim","Ne hvala");
-                          }, 500);
-                        });
-                }
-              });
-
-
-          break;
         case 'da želim':{
 
           user.checkUser(senderID, function(senderId, message){
