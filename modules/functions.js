@@ -7,6 +7,6 @@ exports.for_me = (sender, values) => {
   messages.sendChoiceMessageVerified(sender,tekst,"MANJE OD 35","VIŠE OD 35", "manje", "vise");
 };
 
-exports.ne_hvala = (sender, values) => {
+exports.ne_hvala = (senderID, values) => {
   messages.sendTextMessage(senderID, 'Prijatno');
 };
