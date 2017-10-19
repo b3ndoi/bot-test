@@ -6,6 +6,7 @@ const messages = require('./modules/messages');
 const facebook = require('./modules/facebook');
 const user = require('./modules/user');
 const processor = require('./modules/processor');
+const functions = require('./modules/functions');
 console.log(messages);
 var app = express();
 var port = process.env.PORT || 8080;
@@ -45,6 +46,17 @@ app.post('/webhook', function (req, res) {
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
 
+        if(event.message.quick_reply){
+          let result = processor.match(event.message.quick_reply.payload);
+          if (result) {
+                let function_find = functions[result.handler];
+                if (function_find && typeof function_find === "function") {
+                    handler(sender, result.match);
+                } else {
+                    console.log("Handler " + result.handler + " is not defined");
+                }
+            }
+        }
         if (event.message) {
           receivedMessage(event);
         }else if(event.postback){
