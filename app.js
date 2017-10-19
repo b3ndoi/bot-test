@@ -113,8 +113,8 @@ function receivedMessage(event) {
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
-  if(event.quick_reply){
-    console.log("Postback "+event.quick_reply);
+  if(message.quick_reply){
+    console.log("Postback "+message.quick_reply);
   }
   // console.log("Received message for user %d and page %d at %d with message:",
     // senderID, recipientID, timeOfMessage);
