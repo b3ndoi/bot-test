@@ -225,11 +225,6 @@ function receivedMessage(event) {
           });
           break;
         }
-        case 'ne hvala':{
-
-          messages.sendTextMessage(senderID, 'Prijatno');
-          break;
-        }
         case 'jesam':{
 
           user_info = facebook.getUserInfo(token, senderID, function(data,senderID){
