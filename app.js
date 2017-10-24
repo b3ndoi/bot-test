@@ -158,7 +158,7 @@ function receivedMessage(event) {
       const tekst = "Ukoliko u vašoj porodici postoje hromozomopatije ili ste imali spontani pobačaj, kao i ako ste utvrdili postojanje hromozomopatije u predhodnoj trudnoći, vaša trudnoća je pod visokim rizikom od ovih poremećaja pa se preporučuje VERIFIED test.";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
-        messages.sendChoiceMessageVerified(senderID,"Šta vas najviše brine u trudnoći?","DA","NE", "da", "ne");
+        messages.sendChoiceMessageVerified(senderID,"Šta vas najviše brine u trudnoći?","VIŠE O VERIFIED TESTU","NE", "about", "ne");
       }, 500);
     }
 
