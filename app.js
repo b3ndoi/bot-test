@@ -93,7 +93,7 @@ function receivedPostback(event){
           // messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
           messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
           setTimeout(() =>{
-            messages.sendChoiceMessageVerified(senderID,"Verified test","DA LI JE TEST ZA MENE","SAZNAJ VIŠE", "for_me", "about");}, 500);
+            messages.sendChoiceMessageVerified(senderID,"Verified test","DA LI JE TEST ZA MENE","SAZNAJ VIŠE", "for_me", "about");}, 1500);
         }else{
           messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
         }
