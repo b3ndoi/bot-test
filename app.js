@@ -15,11 +15,11 @@ app.get('/', function (req, res) {
     res.send('Hello from Facebook Messenger Bot');
     // console.log(req);
 });
-var token = "EAATPaqX2Nd0BAPbtN7wjZCfJyfo9LCbsqbAbnb3TvFJZAoY43xDY9LE95t4JSFwLvOZBO85EusDhqnsjoUHXrr4mBBrr4omT03e7a8vIDMyyzOWPt1zGaTtrNWiX0l0VZCkFTMYjxMBv9yhiDhLKLiKPAqIMOGNQEmNVI6lZCbwZDZD";
+const token = "EAATPaqX2Nd0BAPbtN7wjZCfJyfo9LCbsqbAbnb3TvFJZAoY43xDY9LE95t4JSFwLvOZBO85EusDhqnsjoUHXrr4mBBrr4omT03e7a8vIDMyyzOWPt1zGaTtrNWiX0l0VZCkFTMYjxMBv9yhiDhLKLiKPAqIMOGNQEmNVI6lZCbwZDZD";
 var user_info;
 
-var verified = false;
-var brojevi = false;
+let verified = false;
+let brojevi = false;
 var novi_korisnik = true;
 app.get('/webhook', function (req, res) {
   if (req.query['hub.verify_token'] === 'sifra_za_token') {
@@ -223,7 +223,7 @@ function receivedMessage(event) {
     if(message.quick_reply.payload == 'verified_kraj'){
 
       verified = false;
-      
+
     }
 
   }
@@ -248,7 +248,9 @@ function receivedMessage(event) {
           }
         });
     }else if(verified){
-      messages.sendChoiceMessageVerified(senderID,"Jeste sigurni da želite da prekinete verified test?","DA","NE", "verified_kraj", "ne");
+      if(!message.quick_reply){
+        messages.sendChoiceMessageVerified(senderID,"Jeste sigurni da želite da prekinete verified test?","DA","NE", "verified_kraj", "ne");
+      }
     }else{
       // checkUser(senderID, function(senderId, message){
       //   if(message.message){
