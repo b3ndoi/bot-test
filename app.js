@@ -211,6 +211,7 @@ function receivedMessage(event) {
     }
 
     if(message.quick_reply.payload == 'zelim'){
+      user.saveUserVerifiedTest(senderID);
       const tekst = "http://verified.rs/paketi-i-cene/";
       messages.sendTextMessage(senderID, tekst);
 

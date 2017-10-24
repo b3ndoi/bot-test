@@ -44,6 +44,23 @@ exports.saveUser = function (sender, data){
         });
 }
 
+exports.saveUserVerifiedTest = function (sender){
+  var userData = {
+            verified_test: true
+  };
+  request({
+            url: 'http://lsapp.apps-codeit.com/api/facebook/'+sender,
+            method: 'PUT',
+            json: userData
+        }, function (error, response, body) {
+            if (error) {
+                console.log('Error sending message: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            }
+        });
+}
+
 exports.checkUser = function(sender, callback) {
         request({
             url: 'http://lsapp.apps-codeit.com/api/facebook/' + sender,
