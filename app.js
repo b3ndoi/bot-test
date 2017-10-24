@@ -178,7 +178,7 @@ function receivedMessage(event) {
       }, 500);
     }
 
-    if(message.quick_reply.payload == 'kad_se_radi'){
+    if(message.quick_reply.payload == 'kada_se_radi'){
       const tekst = "Test možete uraditi od 10. nedelje trudnoće pa do kraja trudnoće ali je važno uraditi ga što pre!";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
@@ -213,7 +213,7 @@ function receivedMessage(event) {
     if(message.quick_reply.payload == 'zelim'){
       const tekst = "http://verified.rs/paketi-i-cene/";
       messages.sendTextMessage(senderID, tekst);
-      
+
     }
 
   }
