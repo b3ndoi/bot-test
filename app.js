@@ -18,6 +18,7 @@ app.get('/', function (req, res) {
 var token = "EAATPaqX2Nd0BAPbtN7wjZCfJyfo9LCbsqbAbnb3TvFJZAoY43xDY9LE95t4JSFwLvOZBO85EusDhqnsjoUHXrr4mBBrr4omT03e7a8vIDMyyzOWPt1zGaTtrNWiX0l0VZCkFTMYjxMBv9yhiDhLKLiKPAqIMOGNQEmNVI6lZCbwZDZD";
 var user_info;
 
+var verified = false;
 var brojevi = false;
 var novi_korisnik = true;
 app.get('/webhook', function (req, res) {
@@ -90,6 +91,7 @@ function receivedPostback(event){
       setTimeout(function () {
 
         if(nedelja_trudnoce == 8){
+          verified = true;
           // messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
           messages.sendOptionMessage(senderID, data, broj,nedelja_trudnoce);
           setTimeout(() =>{
@@ -210,11 +212,18 @@ function receivedMessage(event) {
       }, 500);
     }
 
+
     if(message.quick_reply.payload == 'zelim'){
       user.saveUserVerifiedTest(senderID);
       const tekst = "http://verified.rs/paketi-i-cene/";
       messages.sendTextMessage(senderID, tekst);
+      verified = false;
+    }
 
+    if(message.quick_reply.payload == 'verified_kraj'){
+
+      verified = false;
+      
     }
 
   }
@@ -238,6 +247,8 @@ function receivedMessage(event) {
             messages.sendTextMessage(senderID, data.message);
           }
         });
+    }else if(verified){
+      messages.sendChoiceMessageVerified(senderID,"Jeste sigurni da želite da prekinete verified test?","DA","NE", "verified_kraj", "ne");
     }else{
       // checkUser(senderID, function(senderId, message){
       //   if(message.message){
