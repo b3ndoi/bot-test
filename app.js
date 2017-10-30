@@ -51,7 +51,7 @@ app.post('/webhook', function (req, res) {
           let result = processor.match(event.message.text);
           if (result) {
                 let function_find = functions[result.handler];
-                if (function_find && typeof function_find === "function") {
+                if (function_find && typeof function_find === "function" && !verified) {
                     function_find(event.sender.id, result.match);
                 } else {
                     console.log("Handler " + result.handler + " is not defined");
