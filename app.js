@@ -20,6 +20,7 @@ var user_info;
 
 let verified = false;
 let brojevi = false;
+let qpayload;
 var novi_korisnik = true;
 app.get('/webhook', function (req, res) {
   if (req.query['hub.verify_token'] === 'sifra_za_token') {
@@ -132,13 +133,14 @@ function receivedMessage(event) {
   var messageAttachments = message.attachments;
   if(message.quick_reply){
     if(message.quick_reply.payload == 'for_me'){
-
+      qpayload = 'for_me';
       const tekst = 'Hajde da zajedno otkrijemo da li spadate u rizičnu grupu, odnosno da li treba da radite prenatalni Verified test.\n Koliko imate godina? ';
 
       messages.sendChoiceMessageVerified(senderID,tekst,"MANJE OD 35","VIŠE OD 35", "manje", "vise");
 
     }
     if(message.quick_reply.payload == 'manje'){
+      qpayload = 'manje';
       const tekst = "Trudnice mlađe od 35 godina ne spadaju u kategoriju visokog rizika ali svakako postoji mogućnost za hromozomske poremećaje. Kako je rizik kod starijih trudnica veći, one se češće upućuju na testiranja dok se češće kod mlađih trudnica dogodi da ovi poremeđaji ostanu nezapaženi u trudnoći pa je npr veći broj rođene dece sa Daunovim sindromom kod mlađih trudnica. ";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
@@ -148,6 +150,7 @@ function receivedMessage(event) {
     }
 
     if(message.quick_reply.payload == 'vise'){
+      qpayload = 'vise';
       const tekst = "Trudnice koje su starije od 35 godina imaju povećan rizik od hromozomskih poremećaja. Da biste bili sigurni u to da je vaša beba hromozomski zdrava uradite Verified prenatalni test.";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
@@ -157,6 +160,7 @@ function receivedMessage(event) {
     }
 
     if(message.quick_reply.payload == 'da'){
+      qpayload = 'da';
       const tekst = "Ukoliko u vašoj porodici postoje hromozomopatije ili ste imali spontani pobačaj, kao i ako ste utvrdili postojanje hromozomopatije u predhodnoj trudnoći, vaša trudnoća je pod visokim rizikom od ovih poremećaja pa se preporučuje VERIFIED test.";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
@@ -165,6 +169,7 @@ function receivedMessage(event) {
     }
 
     if(message.quick_reply.payload == 'about'){
+      qpayload = 'about';
       const tekst = "Poudanost  testa je 99,9% , što znači da su lažno pozitivni rezultati izuzetno retki.";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
@@ -173,6 +178,7 @@ function receivedMessage(event) {
     }
 
     if(message.quick_reply.payload == 'kako_se_radi'){
+      qpayload = 'kako_se_radi';
       const tekst = "Iz samo jedne epruvete vaše krvi, uz pomoć najsavremenije tehnologije izdvaja se dnk bebe. Nakon što izvadite krv u nekoj od ovlašćenih laboratorija, uzorak se šalje u London gde radi detaljna analiza kroz ceo genom vaše bebe. ";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
@@ -181,6 +187,7 @@ function receivedMessage(event) {
     }
 
     if(message.quick_reply.payload == 'kada_se_radi'){
+      qpayload = 'kada_se_radi';
       const tekst = "Test možete uraditi od 10. nedelje trudnoće pa do kraja trudnoće ali je važno uraditi ga što pre!";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
@@ -189,6 +196,7 @@ function receivedMessage(event) {
     }
 
     if(message.quick_reply.payload == 'gde_se_radi'){
+      qpayload = 'gde_se_radi';
       const tekst = "Poručite set za uzimanje uzorka koji će stići na Vašu adresu, a medicinski tim VERIFIED-a pružiće ti i sve dodatne informacije o testu kao i podatak o tome u kojoj najbližoj laboratoriji možeš izvaditi krv. ";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
@@ -197,6 +205,7 @@ function receivedMessage(event) {
     }
 
     if(message.quick_reply.payload == 'sta_ako'){
+      qpayload = 'sta_ako';
       const tekst = "Ako rezultat vašeg VERIFIED testa pokaže postojanje neke hromozomopatije, dobićete savete genetičara iz Londona na srpskom jeziku i bićete upućeni na amniocentezu, a troškove dijagnostičkog testa pokriće kompanija CORD Ips koja je zastupnik VERIFIED-a za Srbiju.";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
@@ -205,6 +214,7 @@ function receivedMessage(event) {
     }
 
     if(message.quick_reply.payload == 'zasto_onda'){
+      qpayload = 'manje';
       const tekst = "Amniocenteza je dijagnostička analiza plodove vode koja je invazivna i nosi rizik od pobačaja. Izlaganje ovom riziku je opravdano ukoliko postoje ozbiljne indikacije, a upravo je VERIFIED test najbolji način da je izbegnete u slučaju da je zaista nepotrebna. ";
       messages.sendTextMessage(senderID, tekst);
       setTimeout(function () {
@@ -214,6 +224,7 @@ function receivedMessage(event) {
 
 
     if(message.quick_reply.payload == 'zelim'){
+      qpayload = 'manje';
       user.saveUserVerifiedTest(senderID);
       const tekst = "http://verified.rs/paketi-i-cene/";
       messages.sendTextMessage(senderID, tekst);
@@ -249,7 +260,7 @@ function receivedMessage(event) {
         });
     }else if(verified){
       if(!message.quick_reply){
-        messages.sendChoiceMessageVerified(senderID,"Jeste sigurni da želite da prekinete verified test?","DA","NE", "verified_kraj", "ne");
+        messages.sendChoiceMessageVerified(senderID,"Jeste sigurni da želite da prekinete verified test?","DA","NE", "verified_kraj", qpayload);
       }
     }else{
       // checkUser(senderID, function(senderId, message){
